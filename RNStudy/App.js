@@ -15,24 +15,14 @@ import {
 export default class App extends Component<{}> {
   render() {
     return (
-        <View>
-            < Text style={styles.red} > just red</Text>
-            < Text style={styles.bigBlue} > just bigBlue</Text>
-            < Text style={[styles.red,styles.bigBlue] }> red, bigBlue</Text>
-
-            < Text style={[styles.bigBlue,styles.red]} > bigBlue ,red</Text>
-
+        <View style={{flex:1}} >
+            {/*<View style={{width:50,height:50,backgroundColor:'blue'}}/>*/}
+            {/*<View style={{width:100,height:100,backgroundColor:'red'}}/>*/}
+            <View style={{flex:1,backgroundColor:'blue'}}/>
+            <View style={{flex:2,backgroundColor:'red'}}/>
         </View>
+
     );
   }
 }
-const styles=StyleSheet.create({
-    bigBlue:{
-        color:'blue',
-        fontWeight:'bold',
-        fontSize:30,
-    },
-    red:{
-        color:'red',
-    }
-})
+
