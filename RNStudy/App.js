@@ -15,11 +15,12 @@ import {
 export default class App extends Component<{}> {
   render() {
     return (
-        <View style={{flex:1}} >
-            {/*<View style={{width:50,height:50,backgroundColor:'blue'}}/>*/}
-            {/*<View style={{width:100,height:100,backgroundColor:'red'}}/>*/}
-            <View style={{flex:1,backgroundColor:'blue'}}/>
-            <View style={{flex:2,backgroundColor:'red'}}/>
+        // row column
+        <View style={{flex:1,flexDirection:'column',justifyContent:'space-between', alignItems:'center'}} >
+            <View style={{width:50,height:50,backgroundColor:'blue'}}/>
+            <View style={{width:100,height:100,backgroundColor:'red'}}/>
+            {/*<View style={{flex:1,backgroundColor:'blue'}}/>*/}
+            {/*<View style={{flex:2,backgroundColor:'red'}}/>*/}
         </View>
 
     );
