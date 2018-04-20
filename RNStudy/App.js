@@ -12,38 +12,27 @@ import {
   View
 } from 'react-native';
 
-class Blink extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { showText: true };
-
-        // 每1000毫秒对showText状态做一次取反操作
-        setInterval(() => {
-            this.setState(previousState => {
-                return { showText: !previousState.showText };
-            });
-        }, 1000);
-    }
-
-    render() {
-        //根据当前showText的值决定是否显示text内容
-        let display = this.state.showText ? this.props.text : ' ';
-        return (
-            <Text>{display}</Text>
-        );
-      
-    }
-}
 export default class App extends Component<{}> {
   render() {
     return (
         <View>
-            <Blink text='I love to blink' />
-            <Blink text='Yes blinking is so great' />
-            <Blink text='Why did they ever take this out of HTML' />
-            <Blink text='Look at me look at me look at me' />
+            < Text style={styles.red} > just red</Text>
+            < Text style={styles.bigBlue} > just bigBlue</Text>
+            < Text style={[styles.red,styles.bigBlue] }> red, bigBlue</Text>
+
+            < Text style={[styles.bigBlue,styles.red]} > bigBlue ,red</Text>
+
         </View>
     );
   }
 }
-
+const styles=StyleSheet.create({
+    bigBlue:{
+        color:'blue',
+        fontWeight:'bold',
+        fontSize:30,
+    },
+    red:{
+        color:'red',
+    }
+})
