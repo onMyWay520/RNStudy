@@ -3,6 +3,7 @@ import {
     View,
     Button,
     StyleSheet,
+
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import React, {Component} from 'react';
@@ -18,6 +19,9 @@ class Main extends React.Component {
                 <Button
                     onPress={() => navigate('Profile')}
                     title="详情"
+                    color="red"
+                    accessibilityLabel="Learn more about this purple button"
+
 
                 />
             </View>
