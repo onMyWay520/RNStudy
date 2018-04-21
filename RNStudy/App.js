@@ -6,54 +6,21 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-    TextInput,
-    ScrollView,
-    Image,
-    FlatList,
-    SectionList
-} from 'react-native';
+   StyleSheet,
+ } from 'react-native';
+import SimpleApp from './Main'
 
 export default class App extends Component<{}> {
   render() {
-    return (
-    < View style={styles.container}>
+    return <SimpleApp />;
 
-      {/*<FlatList data={[{key:'zhangsan'},{key:'lisi'},{key:'wangwu'}]}*/}
-                 {/*renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}*/}
-    {/*/>*/}
-        <SectionList
-            sections={[{title:'D',data:['Devin']},
-            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-
-        ]}
-            renderItem={({item})=><Text style={styles.item}>{item}</Text>}
-            renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-
-        />
-    </View>
-    );
   }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 100
-    },
-    item: {
-        padding: 10,
-        fontSize: 30,
-        height: 44,
-        color:'red',
-        // fontColor:'red',
-    },
-    sectionHeader:{
-        paddingTop:2,
-        paddingLeft:10,
-        fontSize:20,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
-})
+});
