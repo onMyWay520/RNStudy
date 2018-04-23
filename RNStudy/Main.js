@@ -8,6 +8,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import React, {Component} from 'react';
 import  Profile from './Profile'
+import Detail from './Detail'
 class Main extends React.Component {
     static navigationOptions = {
         title: '首页'
@@ -37,5 +38,6 @@ var styles = StyleSheet.create({
 export  const SimpleApp = StackNavigator({
     Main: { screen: Main },
     Profile: { screen: Profile },
+    Detail: { screen: Detail },
 });
 module.exports = SimpleApp;

@@ -1,14 +1,13 @@
 import {
     StyleSheet,
-    View,
     FlatList,
     Text,
-    Button,
+
 } from 'react-native';
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation';
 
-class Profile extends React.Component {
+class Detail extends React.Component {
     // Nav options can be defined as a function of the screen's props:
     static navigationOptions = ({navigation}) => ({
         title: `详情`,
@@ -43,8 +42,8 @@ class Profile extends React.Component {
         }
         return (
 
-           <FlatList data = {this.state.data}
-                     renderItem = {({item}) => <Text style = {styles.item}>{item.title}</Text>}/>
+            <FlatList data = {this.state.data}
+                      renderItem = {({item}) => <Text style = {styles.item}>{item.title}</Text>}/>
         );
     }
 }
@@ -56,4 +55,4 @@ const styles = StyleSheet.create({
         fontSize: 30,
     }
 });
-module.exports = Profile;
+module.exports = Detail;
