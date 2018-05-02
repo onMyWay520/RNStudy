@@ -15,6 +15,11 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+var Dimensions = require('Dimensions');//获取屏幕的宽高
+var ScreenWidth = Dimensions.get('window').width;
+var ScreenHeight = Dimensions.get('window').height;
+//改变ListView的主轴方向，让ListView横向布局，然后设置换行显示，就能实现类似
+//collectionView的布局
 export default class ListViewLearn extends Component {
 
     constructor(props) {
@@ -45,6 +50,8 @@ export default class ListViewLearn extends Component {
             <ListView
                 dataSource={dataSource}
                 renderRow={this.renderEvalation}
+                contentContainerStyle={styles.listViewStyle}//设置cell的样式
+
             />
         );
     }
@@ -52,9 +59,9 @@ export default class ListViewLearn extends Component {
     renderEvalation(data){
         return(
             <TouchableOpacity onPress = {() =>alert(data)} underlayColor = "transparent" >
-            <View style={styles.rightViewStyle}>
+            <View style={styles.bgStyle}>
                <Image style={styles.imageStyle}/>
-               <Text style = {styles.tv_name}>{data}</Text>
+               <Text style = {{fontSize:20,marginBottom:0,textAlign:'center'}}>{data}</Text>
            </View>
 
             </TouchableOpacity>
@@ -81,10 +88,20 @@ const styles= StyleSheet.create({
         borderBottomWidth:1
     },
     imageStyle:{
-        width:80,
-        height:80,
-        margin:30,
+        width:(ScreenWidth-30)/2,
+        height:230,
+        marginBottom:0,
         backgroundColor:'red'
     },
-
+    listViewStyle:{
+        flexDirection:'row', //设置横向布局
+        flexWrap:'wrap'    //设置换行显示
+    },
+    bgStyle:{
+        backgroundColor:'green',
+        width:(ScreenWidth-30)/2,
+        height:250,
+        marginLeft:10,
+        marginTop:10
+    }
 });
