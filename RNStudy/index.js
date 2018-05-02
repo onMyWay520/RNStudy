@@ -1,4 +1,3 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
-
-AppRegistry.registerComponent('RNStudy', () => App);
+import ListViewLearn from './ListViewLearn'
+AppRegistry.registerComponent('RNStudy', () => ListViewLearn);

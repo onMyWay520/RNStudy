@@ -5,6 +5,7 @@ import {
     Text,
     Button,
 } from 'react-native';
+var ITEM_HEIGHT = 100;
 import React, {Component} from 'react';
 import { StackNavigator } from 'react-navigation';
 
@@ -13,6 +14,25 @@ class Profile extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: `详情`,
     });
+    _flatList;
+
+    _renderItem = (item) => {
+        var txt = '第' + item.index + '个' + ' title=' + item.item.title;
+        var bgColor = item.index % 2 == 0 ? 'red' : 'blue';
+        return <Text style={[{flex:1,height:ITEM_HEIGHT,backgroundColor:bgColor},styles.txt]}>{txt}</Text>
+    }
+
+    _header = () => {
+        return <Text style={[styles.txt,{backgroundColor:'black'}]}>这是头部</Text>;
+    }
+
+    _footer = () => {
+        return <Text style={[styles.txt,{backgroundColor:'black'}]}>这是尾部</Text>;
+    }
+
+    _separator = () => {
+        return <View style={{height:2,backgroundColor:'yellow'}}/>;
+    }
     constructor(props){
         super(props);
         this.state = {data: null};
@@ -37,14 +57,34 @@ class Profile extends React.Component {
     }
 
     render() {
-
+        var data = [];
+        for (var i = 0; i < 10; i++) {
+            data.push({key: i, title: i + ''});
+        }
         if(!this.state.data){
             return (<Text>没数据啊</Text>);
         }
         return (
+            <View style={{flex:1}}>
+                <Button title='滚动到指定位置' onPress={()=>{
 
-           <FlatList data = {this.state.data}
-                     renderItem = {({item}) => <Text style = {styles.item}>{item.title}</Text>}/>
+                    this._flatList.scrollToOffset({animated: true, offset: 2000});
+                }}/>
+                <View style={{flex:1}}>
+                    <FlatList
+                        ref={(flatList)=>this._flatList = flatList}
+                        ListHeaderComponent={this._header}
+                        ListFooterComponent={this._footer}
+                        ItemSeparatorComponent={this._separator}
+                        renderItem={this._renderItem}
+                        data={data}
+                        refreshing={true}
+                    >
+
+                    </FlatList>
+                </View>
+
+            </View>
         );
     }
 }
