@@ -11,6 +11,9 @@ import {
     StyleSheet,
     Text,
     ListView,
+    View,
+    Image,
+    TouchableOpacity
 } from 'react-native';
 export default class ListViewLearn extends Component {
 
@@ -18,10 +21,23 @@ export default class ListViewLearn extends Component {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows([
-                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-            ])
+
+            dataSource:ds.cloneWithRows(this.getRows({}))//初始化数据源
+
         };
+    }
+    getRows(){
+        var  dataArr=[];
+        for (var  i=0; i<10;i++){
+
+            dataArr.push(
+               'Row'+i,
+
+            )
+        }
+        return dataArr;
+
+
     }
     render() {
         var dataSource = this.state.dataSource;
@@ -35,7 +51,15 @@ export default class ListViewLearn extends Component {
 
     renderEvalation(data){
         return(
-            <Text style = {styles.tv_name}>{data}</Text>
+            <TouchableOpacity onPress = {() =>alert(data)} underlayColor = "transparent" >
+            <View style={styles.rightViewStyle}>
+               <Image style={styles.imageStyle}/>
+               <Text style = {styles.tv_name}>{data}</Text>
+           </View>
+
+            </TouchableOpacity>
+
+
         );
     }
 
@@ -48,6 +72,19 @@ const styles= StyleSheet.create({
         backgroundColor:'yellow',
         marginTop:30,
         textAlign:'center',
-        height:40
+        height:50,
+        width:200
     },
+    rightViewStyle:{
+        flexDirection:'row',
+        borderBottomColor:'#CCCCCC',//cell的分割线
+        borderBottomWidth:1
+    },
+    imageStyle:{
+        width:80,
+        height:80,
+        margin:30,
+        backgroundColor:'red'
+    },
+
 });
