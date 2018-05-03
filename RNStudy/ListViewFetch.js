@@ -13,8 +13,11 @@ import {
 //import Dimensions from 'Dimensions';
 
 //const {width, height} = Dimensions.get('window');
-
-const dataUrl = 'https://api.douban.com/v2/movie/top250?count=20';
+var pageNo=1 ;
+//每页显示数据的条数
+const pageSize = 10;
+//页面总数据数
+var dataUrl = 'https://api.douban.com/v2/movie/top250?count=30';
 /*{"count": 1, "start": 0, "total": 250, "subjects": [{"rating": {"max": 10, "average": 9.6, "stars": "50", "min": 0},
 "genres": ["\u72af\u7f6a", "\u5267\u60c5"], "title": "\u8096\u7533\u514b\u7684\u6551\u8d4e", "casts": [{"alt": "https:\/\/movie.douban.com\/celebrity\/1054521\/",
 "avatars": {"small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p17525.jpg",
@@ -52,7 +55,7 @@ export default class ListViewFetch extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount(){//render渲染之后，React会根据Virtual DOM来生成真实DOM，生成完毕后会调用该函数
         // 菊花加载
         this.setState({
             isLoading:true,
@@ -62,7 +65,7 @@ export default class ListViewFetch extends Component {
     }
 
 
-    fetchData(refresh){
+    fetchData(refresh){//刷新数据
 
         if(refresh){
             this.setState({
@@ -123,7 +126,9 @@ export default class ListViewFetch extends Component {
 
         setTimeout(() => {
             this.setState({
-                isMoreloading:false
+                isMoreloading:false,
+                pageNo: this.state.pageNo +1
+
             })
         },2000)
     }
@@ -150,7 +155,11 @@ export default class ListViewFetch extends Component {
                             onRefresh={this.reloadNewData.bind(this)}
                             colors={['red','orange']}
                         />}
+                    //renderFooter页头与页脚会在每次渲染过程中都重新渲染（如果提供了这些属性）。如果它们重绘的性能开销很大，
+                    // 把他们包装到一个StaticContainer或者其它恰当的结构中。页脚会永远在列表的最底部，而页头会在最顶部。
                     renderFooter={()=>this.renderFooter()}
+                    //onEndReached当所有的数据都已经渲染过，并且列表被滚动到距离最底部不足onEndReachedThreshold个像素的距离时调用。
+                    // 原生的滚动事件会被作为参数传递。
                     onEndReached={ ()=>this._toEnd() }
                 />
             )
@@ -195,6 +204,7 @@ const styles = StyleSheet.create({
     },
     cellTxt:{
         fontSize:16,
-        color:'red'
+        color:'red',
+       marginLeft:20
     }
 })
