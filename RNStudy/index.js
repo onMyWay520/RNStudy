@@ -1,4 +1,3 @@
 import { AppRegistry } from 'react-native';
-// import ListViewFetch from './ListViewFetch'
-import listViewSwipe from  './listViewSwipe'
-AppRegistry.registerComponent('RNStudy', () => listViewSwipe);
+import rootApp  from './src/screen/rootApp'
+AppRegistry.registerComponent('RNStudy', () => rootApp);
