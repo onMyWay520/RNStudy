@@ -51,7 +51,7 @@ export default class ListViewFetch extends Component {
             dataSource : ds,
             isLoading:false,
             refreshing:false,
-            isMoreloading:true
+            isMoreloading:true//开始让菊花转起来
         }
     }
 
@@ -66,7 +66,7 @@ export default class ListViewFetch extends Component {
 
 
     fetchData(refresh){//刷新数据
-
+        // 如果是下拉刷新的话，让小菊花（ActivityIndicator）一直转。。。。。
         if(refresh){
             this.setState({
                 refreshing:true
@@ -80,7 +80,7 @@ export default class ListViewFetch extends Component {
                 this.setState({
                     dataSource:this.state.dataSource.cloneWithRows(dataList),
                     isLoading:false,
-                    refreshing:false
+                    refreshing:false // 关闭小菊花
                 })
 
             })
@@ -98,13 +98,14 @@ export default class ListViewFetch extends Component {
             </View>
         )
     }
-    // 刷新操作
+    // 下拉刷新操作
     reloadNewData(){
         this.fetchData(true)
     }
 
     // 上拉加载更多
     renderFooter(){
+        //注意：这里利用状态isMoreloading来判断是否还有更多数据，如果有的话，就转小菊花，没有更多的话，就提示用户“没有更多了。”
         if(this.state.isMoreloading){
             return(
                 <View style={{marginVertical: 10}}>
@@ -127,10 +128,10 @@ export default class ListViewFetch extends Component {
         setTimeout(() => {
             this.setState({
                 isMoreloading:false,
-                pageNo: this.state.pageNo +1
+              //  pageNo: this.state.pageNo +1
 
             })
-        },2000)
+        },2000)//这里模拟的是，2s后表示停止加载，没有更多数据了。
     }
 
     render() {
