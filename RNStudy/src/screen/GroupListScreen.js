@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, ListView, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 import {fruits, others, vegetables, styles} from "./SectionListScreen";
 
-export default class GroupListScreen extends Component {
+export default class GroupListScreen extends React.PureComponent {
   
   constructor(props) {
     super(props);
@@ -16,7 +16,6 @@ export default class GroupListScreen extends Component {
     }
 
   }
-  
   render() {
     return (
       <View style={{flex: 1}}>

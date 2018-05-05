@@ -6,20 +6,22 @@
 
 import React, { Component } from 'react';
 import { NavigatorIOS } from 'react-native';
-import RootScene from "./RootScene";
-
+// import RootScene from "./RootScene";
+import RootView from "./RootView";
 type Props = {};
 export default class rootApp extends Component<Props> {
   render() {
     return (
-      <NavigatorIOS
-        initialRoute={{
-          component: RootScene,
-          title: 'ListViewExample'
-        }}
-        style={{flex: 1}}
-      />
-    );
+    //  {/*<NavigatorIOS*/}
+     //   {/*initialRoute={{*/}
+     //     {/*component: RootScene,*/}
+     //     {/*title: 'ListViewExample'*/}
+    //    {/*}}*/}
+    //    {/*style={{flex: 1}}*/}
+   //   {/*/>*/}
+      <RootView/>
+
+  );
   }
   
 }
