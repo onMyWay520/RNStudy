@@ -14,6 +14,7 @@ export default class GroupListScreen extends Component {
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(data)
     }
+
   }
   
   render() {

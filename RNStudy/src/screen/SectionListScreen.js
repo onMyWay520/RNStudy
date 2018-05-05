@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, ListView, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
+import {View, ListView, TouchableOpacity, Image, Text, StyleSheet, Alert} from 'react-native';
+import {data} from "./SimpleListScreen";
 
 export const vegetables = [
   {
@@ -86,7 +87,7 @@ export default class SectionListScreen extends Component {
     super(props);
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2//多个section
     });
     let data = [vegetables, fruits, [others]];
     this.state = {
@@ -100,7 +101,7 @@ export default class SectionListScreen extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          renderSectionHeader={this._renderSectionHeader}
+          renderSectionHeader={this._renderSectionHeader}//区头
         />
       </View>
     )
@@ -114,7 +115,15 @@ export default class SectionListScreen extends Component {
           {
             item.map((itemData, index) => {
               return (
-                <TouchableOpacity key={index} style={styles.gridItem}>
+                <TouchableOpacity key={index} style={styles.gridItem} onPress={() => {
+                    Alert.alert(
+                        itemData.title,
+                        '',
+                        [
+                            {text: 'OK', onPress: () => {}},
+                        ]
+                    )
+                }}>
                   <Image source={itemData.image} style={styles.gridImage}/>
                   <Text style={styles.gridTitle}>{itemData.title}</Text>
                 </TouchableOpacity>
@@ -122,10 +131,19 @@ export default class SectionListScreen extends Component {
             })
           }
         </View>
+
       )
     }
     return (
-      <TouchableOpacity style={styles.cellContainer} onPress={() => {}}>
+      <TouchableOpacity style={styles.cellContainer} onPress={() => {
+          Alert.alert(
+              item.title,
+              '',
+              [
+                  {text: 'OK', onPress: () => {}},
+              ]
+          )
+      }}>
         <Image source={item.image} style={styles.image}/>
         <Text style={styles.title}>{item.title}</Text>
       </TouchableOpacity>
@@ -156,7 +174,7 @@ export default class SectionListScreen extends Component {
 
 export const styles = StyleSheet.create({
   sectionHeader: {
-    padding: 10,
+    padding: 10,//内边距
     backgroundColor: '#f0f0f0'
   },
   cellContainer: {
@@ -174,15 +192,15 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
   },
   gridContainer: {
-    flexDirection:'row',
-    flexWrap:'wrap',
-    justifyContent:'space-between',
-    paddingLeft: 20,
-    paddingRight: 20,
+    flexDirection:'row', //横向
+    flexWrap:'wrap',//换行
+    justifyContent:'space-between',//伸缩项目会平均分布在主轴线上
+    paddingLeft: 30,
+    paddingRight: 30,
   },
-  gridItem: {
-    alignItems:'center',
-    justifyContent:'center',
+  gridItem: {//其他品类的单元格样式
+    alignItems:'center',//伸缩项目向交叉轴的中间位置靠起
+    justifyContent:'center',//伸缩项目会平均地分布在主轴线里
     borderRadius: 6,
     borderWidth: 1,
     borderColor:'#dcdcdc',
