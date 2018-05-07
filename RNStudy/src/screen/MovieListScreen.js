@@ -40,15 +40,16 @@ export default class MovieListScreen extends Component {
       <FlatList
         data={this.state.movieList}
         renderItem={this._renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id}//此函数用于为给定的item生成一个不重复的key
       />
     )
   }
   
-  _renderItem = (item) => {
+  _renderItem = (item) => {//列表单元格
     return (
-      <MovieItemCell movie={item.item} onPress={() => {
+      < movie={item.item} onPress={() => {
         console.log('点击了电影----' + item.item.title);
+        alert(item.item.title)
       }}/>
     )
   };
@@ -58,7 +59,9 @@ export default class MovieListScreen extends Component {
    */
   loadDisplayingMovies() {
     let that = this;
-    fetch(queryMovies('北京', 0, 20)).then((response) => response.json()).then((json) => {
+    fetch(queryMovies('杭州', 0, 20))
+        .then((response) => response.json())
+        .then((json) => {
       console.log(json);
       let movies = [];
       for (let idx in json.subjects) {
@@ -93,7 +96,8 @@ export default class MovieListScreen extends Component {
         movieList: movies,
         loaded: true
       })
-    }).catch((e) => {
+    })
+        .catch((e) => {
       console.log("加载失败");
       that.setState({
         loaded: true
@@ -106,7 +110,9 @@ export default class MovieListScreen extends Component {
    */
   loadComingMovies() {
     let that = this;
-    fetch(comingMovies('北京', 0, 20)).then((response) => response.json()).then((json) => {
+    fetch(comingMovies('北京', 0, 20))
+        .then((response) => response.json())
+        .then((json) => {
       console.log(json);
       if (json == null) {
         that.setState({
@@ -144,7 +150,8 @@ export default class MovieListScreen extends Component {
         movieList: movies,
         loaded: true,
       })
-    }).catch((error) => {
+    })
+        .catch((error) => {
       console.log("加载失败");
       that.setState({
         loaded: true

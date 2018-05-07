@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {TouchableHighlight, View, Image, Text, StyleSheet} from 'react-native';
 import Color from "../common/Color";
 
-export default class MovieItemCell extends Component {
+export default class MovieItemCell extends Component {//自定义单元格
   
   render() {
     let {movie} = this.props;
     let hasAverageScore = (movie.rating.average !== 0);
     return (
       <TouchableHighlight onPress={this.props.onPress}>
-        <View style={styles.container}>
+        <ViewMovieItemCell style={styles.container}>
           <Image
             source={{uri: movie.images.large}}
             style={styles.thumbnail}
@@ -36,7 +36,7 @@ export default class MovieItemCell extends Component {
               <Text style={styles.name}>{movie.actorNames}</Text>
             </View>
           </View>
-        </View>
+        </ViewMovieItemCell>
       </TouchableHighlight>
     )
   }

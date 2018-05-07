@@ -21,8 +21,8 @@ export default class RootView extends Component {
 
 const Tab = TabNavigator(
   {
-    First: {
-      screen: MovieListScreen,
+    First: {//每一个页面的配置
+      screen: MovieListScreen,//当前选项卡加载的页面
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '正在热映',
         tabBarIcon: ({focused, tintColor}) => (
@@ -53,28 +53,33 @@ const Tab = TabNavigator(
   },
   {
     tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    swipeEnabled: false,
-    animationEnabled: false,
-    lazy: true,
+    tabBarPosition: 'bottom',//   //设置TabNavigator的位置
+    swipeEnabled: false,   //是否允许在标签之间进行滑动
+    animationEnabled: false,//是否在更改标签时显示动画
+    lazy: true, // 是否懒加载
     tabBarOptions: {
-      activeTintColor: Color.themeColor,
-      inactiveTintColor: '#888888',
-      style: {backgroundColor: '#ffffff'}
-    }
+        showIcon: true,//是否显示图标，默认关闭
+        showLabel: true,//是否显示label，默认开启
+      activeTintColor: Color.themeColor,//label和icon的前景色 活跃状态下（选中）
+      inactiveTintColor: '#888888',//label和icon的前景色 活跃状态下（未选中）
+      style: {backgroundColor: '#ffffff'} //TabNavigator 的背景颜色
+
+    },
+      //按 back 键是否跳转到第一个Tab(首页)， none 为不跳转
+      backBehavior: "none",
   }
 );
-
+//生成路由关系
 const Navigator = StackNavigator(
   {
     Tab: {screen: Tab},
   },
   {
-    navigationOptions: {
-      headerBackTitle: null,
+    navigationOptions: {//屏幕导航的默认选项
+    //  headerBackTitle: null,
       headerTintColor: '#ffffff',
       headerStyle: {backgroundColor: Color.themeColor},
-      showIcon: true
+     // showIcon: true
     }
   }
 );
