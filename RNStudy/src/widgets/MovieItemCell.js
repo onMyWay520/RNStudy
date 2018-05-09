@@ -9,7 +9,7 @@ export default class MovieItemCell extends Component {//自定义单元格
     let hasAverageScore = (movie.rating.average !== 0);
     return (
       <TouchableHighlight onPress={this.props.onPress}>
-        <ViewMovieItemCell style={styles.container}>
+        <View  style={styles.container}>
           <Image
             source={{uri: movie.images.large}}
             style={styles.thumbnail}
@@ -36,7 +36,7 @@ export default class MovieItemCell extends Component {//自定义单元格
               <Text style={styles.name}>{movie.actorNames}</Text>
             </View>
           </View>
-        </ViewMovieItemCell>
+        </View>
       </TouchableHighlight>
     )
   }

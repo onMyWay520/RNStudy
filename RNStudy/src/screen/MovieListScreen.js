@@ -25,6 +25,7 @@ export default class MovieListScreen extends Component {
     } else {
       this.loadComingMovies();
     }
+
   }
   
   render() {
@@ -47,7 +48,7 @@ export default class MovieListScreen extends Component {
   
   _renderItem = (item) => {//列表单元格
     return (
-      < movie={item.item} onPress={() => {
+      <MovieItemCell   movie={item.item} onPress={() => {
         console.log('点击了电影----' + item.item.title);
         alert(item.item.title)
       }}/>
