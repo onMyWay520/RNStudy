@@ -1,75 +1,60 @@
 import React, {Component} from 'react';
-import {View, SectionList, Text, ActivityIndicator, StyleSheet} from 'react-native';
-import {queryMovies, comingMovies} from '../common/Service';
+import {View} from 'react-native';
+import RefreshListView from "../Refresh/RefreshListView";
+import {queryMovies} from '../common/Service';
 import MovieItemCell from "../widgets/MovieItemCell";
+import RefreshState from "../Refresh/RefreshState";
 
 export default class MovieListScreen extends Component {
-
     static navigationOptions = {
         headerTitle: '豆瓣电影'
     };
-
     constructor(props) {
         super(props);
         this.state = {
-            displayingMovies: [],  // 正在上映的电影数据
-            incomingMovies: [],    // 即将上映的电影数据
-            sectionData: [],      // SectionList数据源
-            loaded: false,  // 用来控制loading视图的显示，当数据加载完成，loading视图不再显示
+            movieList: [],  // 电影列表的数据源
+            startPage: 0,   // 从第几页开始加载
+            pageSize: 10,   // 每页加载多少条数据
         };
     }
 
     componentDidMount() {
-        this.loadDisplayingMovies();
+        this.listView.beginHeaderRefresh();
     }
 
     render() {
-        if (!this.state.loaded) {
-            return (
-                <View style={styles.loadingView}>
-                    <ActivityIndicator animating={true} size="small"/>
-                    <Text style={{color: '#666666', paddingLeft: 10}}>努力加载中</Text>
-                </View>
-            )
-        }
         return (
-            <SectionList
-                keyExtractor={this._keyExtractor}//此函数用于为给定的item生成一个不重复的key
-                renderSectionHeader={this._renderSectionHeader}//在每个section的头部渲染
-                renderItem={this._renderItem}//用来渲染每一个section中的每一个列表项的默认渲染器
-                sections={this.state.sectionData}//用来渲染的数据
+            <RefreshListView
+                ref={(ref) => {this.listView = ref}}
+                data={this.state.movieList}
+                renderItem={this._renderItem}
+                keyExtractor={(item) => item.id}
+                ListEmptyComponent={this._renderEmptyView}
+                onHeaderRefresh={() => { this.loadDisplayingMovies() }}
+                onFooterRefresh={() => { this.loadDisplayingMovies() }}
             />
         )
     }
-
-    _keyExtractor = (item) => item.id;
-
-    _renderSectionHeader = (item) => {
-        let sectionObj = item.section;
-        let sectionIndex = sectionObj.index;
-        let title = (sectionIndex === 0) ? "正在上映" : "即将上映";
-        return (
-            <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>{title}</Text>
-            </View>
-        )
-    };
 
     _renderItem = (item) => {
         return (
             <MovieItemCell movie={item.item} onPress={() => {
                 console.log('点击了电影----' + item.item.title);
-                alert(item.item.title)
             }}/>
         )
     };
 
+    /// 渲染一个空白页，当列表无数据的时候显示。这里简单写成一个View控件
+    _renderEmptyView = (item) => {
+        return <View/>
+    };
+
     /**
-     * 先加载正在上映的电影列表，如果加载成功，接着获取即将上映的电影数据
+     * 加载正在上映的电影列表，此处默认城市为北京，取20条数据显示
      */
     loadDisplayingMovies() {
         let that = this;
-        fetch(queryMovies('北京', 0, 20)).then((response) => response.json()).then((json) => {
+        fetch(queryMovies('北京', this.state.startPage, this.state.pageSize)).then((response) => response.json()).then((json) => {
             console.log(json);
             let movies = [];
             for (let idx in json.subjects) {
@@ -100,96 +85,33 @@ export default class MovieListScreen extends Component {
                 movieItem["actorNames"] = actors;
                 movies.push(movieItem)
             }
-            that.setState(
-                {
-                    displayingMovies: movies,
-                },
-                () => {
-                    // 加载完正在上映的电影后再接着加载即将上映的电影数据
-                    that.loadComingMovies();
-                }
-            )
+            // 获取总的条数
+            let totalCount = json.total;
+
+            // 当前已经加载的条数
+            let currentCount = this.state.movieList.length;
+
+            // 根据已经加载的条数和总条数的比较，判断是否还有下一页
+            let footerState = RefreshState.Idle;
+            let startPage = this.state.startPage;
+            if (currentCount + movies.length < totalCount) {
+                // 还有数据可以加载
+                footerState = RefreshState.CanLoadMore;
+                // 下次加载从第几条数据开始
+                startPage = startPage+ movies.length;
+            } else {
+                footerState = RefreshState.NoMoreData;
+            }
+            // 更新movieList的值
+            let movieList = this.state.movieList.concat(movies);//用于连接两个或多个数组
+            that.setState({
+                movieList: movieList,
+                startPage: startPage
+            });
+            that.listView.endRefreshing(footerState);
         }).catch((e) => {
             console.log("加载失败");
-            that.setState({
-                loaded: true
-            })
-        }).done();
-    }
-
-    /**
-     * 加载即将上映的电影列表，并更新sectionData刷新列表
-     */
-    loadComingMovies() {
-        let that = this;
-        fetch(comingMovies('北京', 0, 20)).then((response) => response.json()).then((json) => {
-            console.log(json);
-            if (json == null) {
-                that.setState({
-                    loaded: true,
-                });
-                return
-            }
-            let movies = [];
-            for (let idx in json.subjects) {
-                let movieItem = json.subjects[idx];
-                let directors = "";
-                for (let index in movieItem.directors) {
-                    let director = movieItem.directors[index];
-                    if (directors === "") {
-                        directors = directors + director.name
-                    } else {
-                        directors = directors + " " + director.name
-                    }
-                }
-                movieItem["directorNames"] = directors;
-
-                let actors = "";
-                for (let index in movieItem.casts) {
-                    let actor = movieItem.casts[index];
-                    if (actors === "") {
-                        actors = actors + actor.name
-                    } else {
-                        actors = actors + " " + actor.name
-                    }
-                }
-                movieItem["actorNames"] = actors;
-                movies.push(movieItem)
-            }
-            // 两个电影数据都加载完成后需要更新sectionData，将数据在界面上显示出来
-            let sectionList = [
-                {data: that.state.displayingMovies, index: 0},
-                {data: movies, index: 1},
-            ];
-            that.setState({
-                loaded: true,
-                incomingMovies: movies,
-                sectionData: sectionList
-            });
-        }).catch((error) => {
-            console.log("加载失败");
-            that.setState({
-                loaded: true
-            })
+            that.listView.endRefreshing(RefreshState.Failure);
         }).done();
     }
 }
-
-const styles = StyleSheet.create({
-    loadingView: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10
-    },
-    sectionHeader: {
-        padding: 10,
-        backgroundColor: '#f3c2a1'
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight:'bold',
-        color:'red'
-    }
-});
