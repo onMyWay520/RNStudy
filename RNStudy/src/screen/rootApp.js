@@ -1,27 +1,42 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React, {Component} from 'react';
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import FirstScreen from "./FirstScreen";
+import SecondScreen from "./SecondScreen";
+import LoginScreen from "./LoginScreen";
 
-import React, { Component } from 'react';
-import { NavigatorIOS } from 'react-native';
-// import RootScene from "./RootScene";
-import RootView from "./RootView";
-type Props = {};
-export default class rootApp extends Component<Props> {
-  render() {
-    return (
-    //  {/*<NavigatorIOS*/}
-     //   {/*initialRoute={{*/}
-     //     {/*component: RootScene,*/}
-     //     {/*title: 'ListViewExample'*/}
-    //    {/*}}*/}
-    //    {/*style={{flex: 1}}*/}
-   //   {/*/>*/}
-      <RootView/>
+export default class RootApp extends Component {
 
-  );
-  }
-  
+    render() {
+        return <Navigator/>
+    }
 }
+
+const Tab = TabNavigator(
+    {
+        First: {screen: FirstScreen},
+        Second: {screen: SecondScreen}
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+        },
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',//设置TabNavigator的位置
+        animationEnabled: false,//是否在更改标签时显示动画
+        swipeEnabled: false,//是否允许在标签之间进行滑动
+    }
+);
+
+const Navigator = StackNavigator(
+    {
+        Tab: {screen: Tab},
+        Login: {screen: LoginScreen}
+    },
+    {
+        navigationOptions: { //配置每一个选项卡的样式
+            headerBackTitle: null,
+            showIcon: true
+        }
+    }
+);
