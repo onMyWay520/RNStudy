@@ -3,11 +3,12 @@ import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import FirstScreen from "./FirstScreen";
 import SecondScreen from "./SecondScreen";
 import LoginScreen from "./LoginScreen";
-
+import  LoginView from  "./LoginView"
 export default class RootApp extends Component {
 
     render() {
-        return <Navigator/>
+        // return <Navigator/>
+        return <LoginView/>
     }
 }
 
