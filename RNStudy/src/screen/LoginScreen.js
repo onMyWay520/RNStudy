@@ -3,6 +3,7 @@ import {View, Button} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import BaseComponent from './BaseComponent';
 import SecondScreen from  './SecondScreen'
+
 export default class LoginScreen extends BaseComponent {
   
   static navigationOptions = {

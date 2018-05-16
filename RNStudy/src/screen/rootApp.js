@@ -4,14 +4,18 @@ import FirstScreen from "./FirstScreen";
 import SecondScreen from "./SecondScreen";
 import LoginScreen from "./LoginScreen";
 import  LoginView from  "./LoginView"
+import  RootView  from  "./RootView"
 export default class RootApp extends Component {
 
     render() {
         // return <Navigator/>
-        return <LoginView/>
+        return <App/>
     }
 }
-
+const App = StackNavigator({
+    Login: {screen: LoginView},
+    RootView: {screen: RootView}
+});
 const Tab = TabNavigator(
     {
         First: {screen: FirstScreen},

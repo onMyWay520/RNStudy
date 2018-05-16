@@ -7,11 +7,16 @@ import  {
     TextInput,
     TouchableOpacity,
 } from  'react-native'
-
+import RootView from './RootView'
+import { NavigationActions } from 'react-navigation'
 var dimensions=require('Dimensions');
 var  {width}=dimensions.get('window');
 export  default class   LoginView extends Component{
+    static navigationOptions = {
+        title: '登录',//设置标题内容
+    };
     render(){
+        const { navi } = this.props.navigation.navigate;
         return(
             <View style={styles.container}>
                 <Image style={styles.circleImage} source={require('../../assets/image/Loginlogo.png')}/>
@@ -23,7 +28,12 @@ export  default class   LoginView extends Component{
                     placeholder={'请输入登录密码'}
                     secureTextEntry={true}/>
                 {/*登录*/}
-                <TouchableOpacity style={styles.btnStyle}>
+                <TouchableOpacity style={styles.btnStyle} onPress={
+                    () =>{
+                        // navi('RootView')
+                        this.props.navigation.dispatch(navigationAction)
+                    }
+                }>
                     <Text style={styles.loginText}>登录</Text>
                 </TouchableOpacity>
                 <View style={styles.forgetViewStyle}>
@@ -36,18 +46,26 @@ export  default class   LoginView extends Component{
         )
     }
 }
+const navigationAction = NavigationActions.navigate({
+    routeName: RootView,
+    params: {},
+
+    // navigate can have a nested navigate action that will be run inside the child router
+    // action: NavigationActions.navigate({ routeName: 'SubProfileRoute'})
+})
+
 const styles=StyleSheet.create(
        {
         container:{
             flex:1,
             flexDirection:'column',
-            backgroundColor:'#dddddd',
+            backgroundColor:'white',
             alignItems:'center',
         },
         circleImage:{
             width:200,
             height:80,
-            marginTop:100
+            marginTop:60
         },
            phoneTextInput:{
                height:40,
