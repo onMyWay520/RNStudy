@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarBottom,SwitchNavigator } from 'react-navigation';
 import FirstScreen from "./FirstScreen";
 import SecondScreen from "./SecondScreen";
 import LoginScreen from "./LoginScreen";
 import  LoginView from  "./LoginView"
 import  RootView  from  "./RootView"
+import   RegisterScreen from "./RegisterScreen"
 export default class RootApp extends Component {
 
     render() {
@@ -12,10 +13,22 @@ export default class RootApp extends Component {
         return <App/>
     }
 }
+
 const App = StackNavigator({
     Login: {screen: LoginView},
-    RootView: {screen: RootView}
+    RootView: {screen: RootView},
+    RegisterScreen: {screen: RegisterScreen}
+
 });
+// const App= SwitchNavigator(
+//     {
+//         Login: LoginView,
+//         RootView : RootView,
+//     },
+//     {
+//         initialRouteName: 'LoginView',
+//     }
+// );
 const Tab = TabNavigator(
     {
         First: {screen: FirstScreen},

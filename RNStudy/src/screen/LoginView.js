@@ -8,7 +8,12 @@ import  {
     TouchableOpacity,
 } from  'react-native'
 import RootView from './RootView'
-import { NavigationActions } from 'react-navigation'
+import RegisterScreen from './RegisterScreen'
+import {
+    StackNavigator,
+} from 'react-navigation';
+// import {NavigationActions} from 'react-navigation';
+
 var dimensions=require('Dimensions');
 var  {width}=dimensions.get('window');
 export  default class   LoginView extends Component{
@@ -16,7 +21,7 @@ export  default class   LoginView extends Component{
         title: '登录',//设置标题内容
     };
     render(){
-        const { navi } = this.props.navigation.navigate;
+        // const { navi } = this.props.navigation;
         return(
             <View style={styles.container}>
                 <Image style={styles.circleImage} source={require('../../assets/image/Loginlogo.png')}/>
@@ -30,15 +35,24 @@ export  default class   LoginView extends Component{
                 {/*登录*/}
                 <TouchableOpacity style={styles.btnStyle} onPress={
                     () =>{
-                        // navi('RootView')
-                        this.props.navigation.dispatch(navigationAction)
-                    }
+                        // this.props.navigation.navigate('RootView')
+                        // this.props.navigation.dispatch(navigationAction)
+                        }
+
                 }>
                     <Text style={styles.loginText}>登录</Text>
                 </TouchableOpacity>
                 <View style={styles.forgetViewStyle}>
                     <Text style={styles.forgetTextStyle}>忘记密码</Text>
-                    <Text style={styles.registerTextStyle}>还没有账号，赶紧注册</Text>
+
+                    <TouchableOpacity style={styles.registerTextStyle} onPress={
+                        () =>{
+                            this.props.navigation.navigate('RegisterScreen')
+                        }
+
+                    }>
+                    <Text>还没有账号，赶紧注册</Text>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -46,13 +60,13 @@ export  default class   LoginView extends Component{
         )
     }
 }
-const navigationAction = NavigationActions.navigate({
-    routeName: RootView,
-    params: {},
-
-    // navigate can have a nested navigate action that will be run inside the child router
-    // action: NavigationActions.navigate({ routeName: 'SubProfileRoute'})
-})
+// const navigationAction = NavigationActions.reset({
+//     index:0,
+//     actions: [
+//         NavigationActions.navigate({routeName: 'RootView'}),
+//     ],
+//
+// })
 
 const styles=StyleSheet.create(
        {
