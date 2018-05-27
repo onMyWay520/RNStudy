@@ -1,9 +1,29 @@
-/// 查询正在上映的电影
-export function queryMovies(city, start, count) {
-  return "https://api.douban.com/v2/movie/in_theaters?city=" + city + "&start=" + start + "&count=" + count
-}
+import {Alert} from 'react-native';
+import {NavigationActions} from 'react-navigation';
+import BaseComponent from '../screen/BaseComponent';
 
-/// 查询即将上映的电影
-export function comingMovies(city, start, count) {
-  return "https://api.douban.com/v2/movie/coming_soon?city=" + city + "&start=" + start + "&count=" + count
+export default class Service {
+
+    static backendAPIMethod() {
+        Alert.alert(
+            '提示',
+            '请求出错，请重新登录',
+            [
+                {
+                    text: '确定', onPress: () => {
+                        // 退出到登录界面
+                        let resetAction = NavigationActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({routeName: 'Login'})
+                            ],
+                            key: null
+                        });
+                        BaseComponent.screen.nav().dispatch(resetAction);
+                    }
+                }
+            ],
+            { cancelable: false }
+        )
+    }
 }
