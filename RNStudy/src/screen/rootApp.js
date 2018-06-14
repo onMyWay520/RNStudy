@@ -1,60 +1,40 @@
 import React, {Component} from 'react';
-import { StackNavigator, TabNavigator, TabBarBottom,SwitchNavigator } from 'react-navigation';
-import FirstScreen from "./FirstScreen";
-import SecondScreen from "./SecondScreen";
-import LoginScreen from "./LoginScreen";
-import  LoginView from  "./LoginView"
-import  RootView  from  "./RootView"
-import   RegisterScreen from "./RegisterScreen"
-export default class RootApp extends Component {
+var ReactNative = require('react-native');
+var {
+    SegmentedControlIOS,
+    Text,
+    View,
+    StyleSheet,
+    Alert
+} = ReactNative;
 
-    render() {
-        // return <Navigator/>
-        return <App/>
+export default class rootApp extends Component {
+    static navigationOptions = {
+        title: 'SegmentedControlIOS',
+    };
+    _onChange = (event)=>{
+        var s = 'onChange参数属性:selectedSegmentIndex：'+
+            event.nativeEvent.selectedSegmentIndex+'\n'+
+            'target:'+event.nativeEvent.target+'\n'+
+            'value:'+event.nativeEvent.value;
+        Alert.alert(s);
     }
+
+    onValueChange = (value)=>{
+        Alert.alert('onValueChange:'+value);
+    }
+    render() {
+        return (
+            <View style={{flex:1,marginTop:20}}>
+                <SegmentedControlIOS selectedIndex={1} onChange={this._onChange} onValueChange={this.onValueChange}
+                                     values={['第一个','第二个','第三个','第四个']} tintColor='red'
+                />
+            </View>
+
+      );
+    }
+
+
+
 }
 
-const App = StackNavigator({
-    Login: {screen: LoginView},
-    RootView: {screen: RootView},
-    RegisterScreen: {screen: RegisterScreen}
-
-});
-// const App= SwitchNavigator(
-//     {
-//         Login: LoginView,
-//         RootView : RootView,
-//     },
-//     {
-//         initialRouteName: 'LoginView',
-//     }
-// );
-const Tab = TabNavigator(
-    {
-        First: {screen: FirstScreen},
-        Second: {screen: SecondScreen}
-    },
-    {
-        tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        },
-        tabBarComponent: TabBarBottom,
-        tabBarPosition: 'bottom',//设置TabNavigator的位置
-        animationEnabled: false,//是否在更改标签时显示动画
-        swipeEnabled: false,//是否允许在标签之间进行滑动
-    }
-);
-
-const Navigator = StackNavigator(
-    {
-        Tab: {screen: Tab},
-        Login: {screen: LoginScreen}
-    },
-    {
-        navigationOptions: { //配置每一个选项卡的样式
-            headerBackTitle: null,
-            showIcon: true
-        }
-    }
-);
