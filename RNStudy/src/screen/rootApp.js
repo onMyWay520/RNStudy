@@ -23,14 +23,20 @@ export default class rootApp extends Component {
             position: 0,
         }
     }
+    static  defaultProps={
+        duration:3000
+    }
     render() {
 
         return (
             <View style={styles.container}>
                 <ScrollView
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}//隐藏水平指示器
                     pagingEnabled={true}
+                    ref="scrollView"
+                    //手指按下的时候，停止计时器
+                    // onTouchStart={() => clearInterval(this.timer)}
                     //滚动动画结束时调用此函数。一帧滚动结束
                     onMomentumScrollEnd={(v) => this.onAnimationEnd(v)}>
                     {/*显示轮播图的图片内容*/}
@@ -77,12 +83,43 @@ export default class rootApp extends Component {
         }
         return circles;
     }
+    componentDidMount(){
+        //开启定时器
+        this.startTimer()
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.timer)
+    }
+    //开启定时器
+    startTimer(){
+        //1.拿到scrollView
+        var scrollView = this.refs.scrollView;
+        //2.添加定时器
+        this.timer = setInterval(()=>{
+            //设置圆点的下标
+            var curr = this.state.position;
+            if (curr + 1 > banner.length - 1) {
+                curr = 0;
+            } else {
+                curr++;
+            }
+            //更新状态机，更新当前下标
+            this.setState({
+                position: curr,
+            });
+            //滚动ScrollView，1.求出水平方向的平移量  offsetX = curr * width
+           scrollView.scrollTo({x: curr * width, y: 0, animated: true})
+        }, this.props.duration);
+
+    };
+
 }
 
 // 样式
 var  styles = StyleSheet.create({
     container: {
-        marginTop: 8,
+        marginTop: 0,
     },
     image: {
         width: width,
@@ -106,7 +143,7 @@ var  styles = StyleSheet.create({
     selected: {
         marginLeft: 10,
         fontSize: 40,
-        color: '#5CB85C'
+        color: 'red'
     },
 });
 
