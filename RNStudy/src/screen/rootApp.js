@@ -4,9 +4,7 @@ var ReactNative = require('react-native');
 var {
     View,
     StyleSheet,
-    ScrollView,
     Image,
-    Text
 
 } = ReactNative;
 var Dimensions = require('Dimensions');
@@ -21,20 +19,41 @@ export default class rootApp extends Component {
 
     render() {
 
-          return  <Swiper style={styles.wrapper} showsButtons={false}>
-                <View style={styles.slide1}>
-                    <Text style={styles.text}> 1 </Text>
-                </View>
-                <View style={styles.slide2}>
-                    <Text style={styles.text}>2</Text>
-                </View>
-                <View style={styles.slide3}>
-                    <Text style={styles.text}>3</Text>
-                </View>
+        return (
+
+             <Swiper  showsButtons={false} height={220} width={width} horizontal={true} autoplay autoplayTimeout={2}
+                      dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4}} />}
+                      activeDot={<View style={{backgroundColor: 'blue', width: 8, height: 8, borderRadius: 4}} />}
+                      paginationStyle={{
+                          top: -350, centerX:self
+                      }}
+                    >
+                 <View style={styles.slide1} >
+                     <Image
+                         style={styles.image}
+                         source={{uri:banner[0]}}
+                     />
+
+                 </View>
+                 <View style={styles.slide1} >
+                     <Image
+                         style={styles.image}
+                         source={{uri:banner[1]}}
+                     />
+                 </View>
+                 <View style={styles.slide1} >
+                     <Image
+                         style={styles.image}
+                         source={{uri:banner[2]}}
+                     />
+                 </View>
+
             </Swiper>
+
+        );
+
+
     }
-
-
 
 
 
@@ -45,10 +64,12 @@ var  styles = StyleSheet.create({
     wrapper: {
     },
     slide1: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red'
+        width:width,
+        height:200
+
     },
     slide2: {
         flex: 1,
@@ -62,12 +83,11 @@ var  styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#92BBD9'
     },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold'
+
+    image: {
+        width:width,
+        flex: 1
     }
 
-
-});
+    });
 
