@@ -3,7 +3,7 @@
  */
 
 
-import React, { Component , PropTypes} from 'react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -12,7 +12,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
-
+import PropTypes from 'prop-types';
 const LCCountDownButtonState = {
     LCCountDownButtonActive : 0,
     LCCountDownButtonDisable : 1,

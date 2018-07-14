@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 // import CountDownButton from './countDownButton'
 
-// import LCCountDownButton from "./LCCountDownButton"
-import CountDownTimer from 'react_native_countdowntimer'
-// var ReactNative = require('react-native');
+import LCCountDownButton from "./LCCountDownButton"
+// import CountDownTimer from 'react_native_countdowntimer'
 import {
     StyleSheet,
-    TouchableHighlight,
-    Image,
-    Text,
-    View,
+
 } from 'react-native';
 
 export default class rootApp extends Component {
@@ -17,28 +13,36 @@ export default class rootApp extends Component {
     render() {
 
         return (
-            <CountDownTimer
+            //<CountDownTimer
                 //date={new Date(parseInt(endTime))}
-                date="2018-11-28T00:00:00+00:00"
-                days={{plural: 'Days ',singular: 'day '}}
-                hours=':'
-                mins=':'
-                segs=''
+                // date="2018-11-28T00:00:00+00:00"
+                // days={{plural: 'Days ',singular: 'day '}}
+                // hours=':'
+                // mins=':'
+                // segs=''
+                //
+                // daysStyle={styles.time}
+                // hoursStyle={styles.time}
+                // minsStyle={styles.time}
+                // secsStyle={styles.time}
+                // firstColonStyle={styles.colon}
+                // secondColonStyle={styles.colon}
+            // />
 
-                daysStyle={styles.time}
-                hoursStyle={styles.time}
-                minsStyle={styles.time}
-                secsStyle={styles.time}
-                firstColonStyle={styles.colon}
-                secondColonStyle={styles.colon}
+            <LCCountDownButton frameStyle={{top:44 * 3 + 4,right:10,width:120,height:36,position:'absolute'}}
+                               beginText='获取验证码'
+                               endText='再次获取验证码'
+                               count={10}
+                               pressAction={()=>{this.countDownButton.startCountDown()}}
+                               changeWithCount={(count)=> count + 's后重新获取'}
+                               id='register'
+                               ref={(e)=>{this.countDownButton=e}}
             />
+
 
         )
 
-
     }
-
-
 
 }
 
@@ -81,24 +85,5 @@ const styles = StyleSheet.create({
         top: 15,
         right:10,
         backgroundColor: 'transparent'
-    },
-    cardItemTimer:{
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    cardItemTimerIcon: {
-        width:11,
-        height: 11,
-    },
-    cardItem: {
-        flexDirection: 'column',
-        backgroundColor:'red',
-        marginTop:20,
-        width: 370,
-        height: 370 * 0.65625,
-    },
-    cardItemMainPic: {
-        width: 370,
-        height: 370 * 0.65625,
-    },
+    }
 });
