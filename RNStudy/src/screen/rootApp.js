@@ -1,89 +1,151 @@
 import React, {Component} from 'react';
-// import CountDownButton from './countDownButton'
+import ImagePicker from 'react-native-image-picker';
 
-import LCCountDownButton from "./LCCountDownButton"
-// import CountDownTimer from 'react_native_countdowntimer'
 import {
     StyleSheet,
+    Text,
+    View,
+    PixelRatio,
+    TouchableOpacity,
+    Image,
 
 } from 'react-native';
 
 export default class rootApp extends Component {
 
-    render() {
-
-        return (
-            //<CountDownTimer
-                //date={new Date(parseInt(endTime))}
-                // date="2018-11-28T00:00:00+00:00"
-                // days={{plural: 'Days ',singular: 'day '}}
-                // hours=':'
-                // mins=':'
-                // segs=''
-                //
-                // daysStyle={styles.time}
-                // hoursStyle={styles.time}
-                // minsStyle={styles.time}
-                // secsStyle={styles.time}
-                // firstColonStyle={styles.colon}
-                // secondColonStyle={styles.colon}
-            // />
-
-            <LCCountDownButton frameStyle={{top:44 * 3 + 4,right:10,width:120,height:36,position:'absolute'}}
-                               beginText='获取验证码'
-                               endText='再次获取验证码'
-                               count={10}
-                               pressAction={()=>{this.countDownButton.startCountDown()}}
-                               changeWithCount={(count)=> count + 's后重新获取'}
-                               id='register'
-                               ref={(e)=>{this.countDownButton=e}}
-            />
+    state = {
+        avatarSource: null,
+        videoSource: null
+    };
 
 
-        )
+    //选择图片
+    selectPhotoTapped() {
+        const options = {
+            title: '选择图片',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择照片',
+            // customButtons: [
+            //     {name: 'fb', title: 'Choose Photo from Facebook'},
+            // ],
+            cameraType: 'back',
+            mediaType: 'photo',
+            videoQuality: 'high',
+            durationLimit: 10,
+            maxWidth: 300,
+            maxHeight: 300,
+            quality: 0.8,
+            angle: 0,
+            allowsEditing: false,
+            noData: false,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
 
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    avatarSource: source
+                });
+            }
+        });
     }
+
+    //选择视频
+    selectVideoTapped() {
+        const options = {
+
+            title: '选择视频',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '录制视频',
+            chooseFromLibraryButtonTitle: '选择视频',
+            mediaType: 'video',
+            videoQuality: 'medium'
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled video picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                this.setState({
+                    videoSource: response.uri
+                });
+            }
+        });
+    }
+
+    render() {
+        return (
+
+            <View style={styles.container}>
+                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                    <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 30}]}>
+                        { this.state.avatarSource === null ? <Text>选择照片</Text> :
+                            <Image style={styles.avatar} source={this.state.avatarSource} />
+                        }
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.selectVideoTapped.bind(this)}>
+                    <View style={[styles.avatar, styles.avatarContainer]}>
+                        <Text>选择视频</Text>
+                    </View>
+                </TouchableOpacity>
+
+                { this.state.videoSource &&
+                <Text style={{margin: 8, textAlign: 'center'}}>{this.state.videoSource}</Text>
+                }
+            </View>
+        );
+    }
+
 
 }
 
 const styles = StyleSheet.create({
-
-    cardItemTimeRemainTxt: {
-        fontSize: 20,
-        color: '#ee394b'
-    },
     container: {
-        backgroundColor: '#000',
-        padding: 5,
-        borderRadius: 5,
-        flexDirection: 'row',
-        marginTop:20
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
     },
-    text: {
-        fontSize: 30,
-        color: '#FFF',
-        marginLeft: 7,
+    avatarContainer: {
+        borderColor: '#9B9B9B',
+        borderWidth: 1 / PixelRatio.get(),
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    //时间文字
-    time: {
-        marginTop:100,
-        paddingHorizontal: 3,
-        backgroundColor: 'rgba(85, 85, 85, 1)',
-        fontSize: 12,
-        color: 'white',
-        marginHorizontal: 3,
-        borderRadius: 2,
-    },
-    //冒号
-    colon: {
-        marginTop:100,
-        fontSize: 12, color: 'rgba(85, 85, 85, 1)'
-    },
-
-    cardItemMask:{
-        position: 'absolute',
-        top: 15,
-        right:10,
-        backgroundColor: 'transparent'
+    avatar: {
+        borderRadius: 50,
+        width: 100,
+        height: 100
     }
+
 });
