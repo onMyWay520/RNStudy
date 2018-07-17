@@ -7,6 +7,10 @@ import {
     Image,
     View
 } from 'react-native';
+import SimpleListScreen from "./SimpleListScreen";
+import GridLayoutScreen from "./GridLayoutScreen";
+import SectionListScreen from "./SectionListScreen";
+import GroupListScreen from "./GroupListScreen";
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 
@@ -20,11 +24,14 @@ export default class rootApp extends Component {
                 style={styles.container}
                 renderTabBar={() => <DefaultTabBar />}
                 tabBarUnderlineStyle={styles.lineStyle}
-                tabBarActiveTextColor='#FF0000'>
-                <Text style={styles.textStyle} tabLabel='娱乐'>娱乐</Text>
-                <Text style={styles.textStyle} tabLabel='科技'>科技</Text>
-                <Text style={styles.textStyle} tabLabel='军事'>军事</Text>
-                <Text style={styles.textStyle} tabLabel='体育'>体育</Text>
+                tabBarActiveTextColor='#FF0000'
+                onScroll={(position)=>{
+                    console.log('scroll position '+position);
+                }}
+            >
+                <GridLayoutScreen tabLabel='娱乐'  />
+                <SectionListScreen tabLabel='科技'/>
+                <GroupListScreen tabLabel='军事'/>
             </ScrollableTabView>
         );
     }
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     lineStyle: {
-        width:ScreenWidth/4,
+        width:ScreenWidth/3,
         height: 2,
         backgroundColor: '#FF0000',
     },
