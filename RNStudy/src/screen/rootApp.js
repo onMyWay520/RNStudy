@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import ScrollableTabView, {DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
 import {
-    AppRegistry,
+
     StyleSheet,
-    Text,
-    Image,
-    View
 } from 'react-native';
-import SimpleListScreen from "./SimpleListScreen";
 import GridLayoutScreen from "./GridLayoutScreen";
 import SectionListScreen from "./SectionListScreen";
 import GroupListScreen from "./GroupListScreen";
@@ -16,7 +12,9 @@ var ScreenWidth = Dimensions.get('window').width;
 
 export default class rootApp extends Component {
 
-
+    static navigationOptions = {
+        header: null
+    };
     render() {
         return (
 
@@ -41,7 +39,7 @@ export default class rootApp extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 10
+        marginTop: 20
     },
     lineStyle: {
         width:ScreenWidth/3,
