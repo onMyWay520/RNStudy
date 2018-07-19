@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Search from '../common/search';
-// import Util from '../common/util';
-// import ServiceURL from '../common/Service';
+
 import Swiper from 'react-native-swiper';
 import  {
     StyleSheet,
@@ -10,9 +9,9 @@ import  {
     ScrollView,
     Image,
     TouchableOpacity,
-    Dimensions
+
 } from 'react-native';
-// var Dimensions = require('Dimensions');
+var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
 var banner = [
@@ -20,7 +19,7 @@ var banner = [
     'http://oweq6in8r.bkt.clouddn.com/liuliangqiu.jpg',
     'http://oweq6in8r.bkt.clouddn.com/rn.jpeg',
 ];
-
+var  keywords='';
 export default class  SearchView extends Component {
     static navigationOptions = {
         header: null
@@ -28,25 +27,24 @@ export default class  SearchView extends Component {
     constructor(props) {
 
         super(props);
-        // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        //
         this.state = {
             // dataSource: ds.cloneWithRows([]),                // 承载搜索到的 movies 信息数组
-            keywords: '西游记',                                // 搜索关键字
-            show: false                                      // 控制 loading 动画开关
+            // keywords: '西游记',                                // 搜索关键字
+            // show: false                                      // 控制 loading 动画开关
         };
 
     }
+
 
     render() {
 
         return (
             <ScrollView style={styles.flex_1}>
 
-                  <View style={[styles.search, styles.row]}>
+                <View style={[styles.search, styles.row]}>
 
                     <View style={styles.flex_1}>
-                        <Search placeholder="请输入电影的名称" onChangeText={this._changeText.bind(this)}/>
+                        <Search placeholder="请输入电影的名称" onChangeText={this._changeText.bind(this)} />
                     </View>
 
                     <TouchableOpacity style={styles.btn} onPress={this._search.bind(this)}>
@@ -54,10 +52,13 @@ export default class  SearchView extends Component {
                     </TouchableOpacity>
 
                 </View>
+
                 {this._renderSwiper()}
-
-
             </ScrollView>
+
+
+
+
         );
 
     }
@@ -67,41 +68,44 @@ export default class  SearchView extends Component {
         // this._getData();
     }
 
-    // 搜索框中内容变化时触发
+  //  搜索框中内容变化时触发
     _changeText(val) {
         this.setState({
             keywords: val
         });
     }
 
-    // 搜素按钮点击后触发，获取数据
+  //  搜素按钮点击后触发，获取数据
     _search() {
-        alert('1234')
+        alert(keywords)
         // this._getData();
     }
 
-
+//创建轮播
     _renderSwiper() {
-       return(<Swiper  showsButtons={false} height={220} width={width} horizontal={true} autoplay autoplayTimeout={2}
-                       dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4}} />}
-                       activeDot={<View style={{backgroundColor: 'blue', width: 8, height: 8, borderRadius: 4}} />}
-                       paginationStyle={{
-                           top: -350, centerX:self
-                       }}>
-           <View style={styles.slide1} >
-               <Image
-                   style={styles.image}
-                   source={{uri:banner[0]}}
-               />
+       return(
+           <Swiper  showsButtons={false} autoplay={true} height={200}
+                    dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+                    activeDot={<View style={{backgroundColor: 'yellow', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
 
-           </View>
-           <View style={styles.slide1} >
-               <Image
-                   style={styles.image}
-                   source={{uri:banner[1]}}
-               />
-           </View>
-       </Swiper>)
+                    paginationStyle={{
+                        top: 180, left: null, right: 150
+                    }}>
+               <View style={styles.slide1} >
+                   <Image
+                       style={styles.image}
+                       source={{uri:banner[0]}}
+                   />
+
+               </View>
+               <View style={styles.slide1} >
+                   <Image
+                       style={styles.image}
+                       source={{uri:banner[1]}}
+                   />
+               </View>
+           </Swiper>
+       )
     }
 };
 
@@ -155,8 +159,5 @@ const styles = StyleSheet.create({
         width:width,
         flex: 1
     }
-
-
-
 
 });
