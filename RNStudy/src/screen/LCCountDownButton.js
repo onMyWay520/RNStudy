@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     },
     //可以点击时候的TouchableOpacity样式
     activeButtonStyle:{
-        backgroundColor:'green',
+        backgroundColor:'#2a7fd5',
     },
 
     txtCommonStyle:{
@@ -196,10 +196,10 @@ const styles = StyleSheet.create({
     },
     //禁用时候的Text样式
     disableTxtStyle:{
-        color:'gray',
+        color:'white',
     },
     //可以点击时候的Text样式
     activeTxtStyle:{
-        color:'black',
+        color:'white',
     }
 });

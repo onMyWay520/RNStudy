@@ -7,21 +7,27 @@ import  {
     TextInput,
     TouchableOpacity,
 } from  'react-native'
-import RootView from './RootView'
+import PPYTabNavigator from './PPYTabNavigator'
 import RegisterScreen from './RegisterScreen'
-import {
-    StackNavigator,
-} from 'react-navigation';
-// import {NavigationActions} from 'react-navigation';
+// import {
+//     StackNavigator,
+// } from 'react-navigation';
 
 var dimensions=require('Dimensions');
 var  {width}=dimensions.get('window');
 export  default class   LoginView extends Component{
-    static navigationOptions = {
-        title: '登录',//设置标题内容
-    };
+
+    static navigationOptions = ({navigation, screenProps}) => ({
+        //左侧标题
+        headerTitle: '登录',
+        //设置跳转页面左侧返回箭头后面的文字，默认是上一个页面的标题
+        headerBackTitle: null,
+        //顶部标题栏的样式
+        headerStyle: styles.headerStyle,
+        //顶部标题栏文字的样式
+        headerTitleStyle: styles.headerTitleStyle,
+    });
     render(){
-        // const { navi } = this.props.navigation;
         return(
             <View style={styles.container}>
                 <Image style={styles.circleImage} source={require('../../assets/image/Loginlogo.png')}/>
@@ -35,8 +41,7 @@ export  default class   LoginView extends Component{
                 {/*登录*/}
                 <TouchableOpacity style={styles.btnStyle} onPress={
                     () =>{
-                        // this.props.navigation.navigate('RootView')
-                        // this.props.navigation.dispatch(navigationAction)
+                        this.props.navigation.navigate('PPYTabNavigator')
                         }
 
                 }>
@@ -60,13 +65,6 @@ export  default class   LoginView extends Component{
         )
     }
 }
-// const navigationAction = NavigationActions.reset({
-//     index:0,
-//     actions: [
-//         NavigationActions.navigate({routeName: 'RootView'}),
-//     ],
-//
-// })
 
 const styles=StyleSheet.create(
        {

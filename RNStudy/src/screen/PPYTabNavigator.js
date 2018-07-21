@@ -4,14 +4,18 @@ import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation';
 import Color from "../common/Color";
 import TabBarItemComponent from "../widgets/TabBarItemComponent";
 import MovieListScreen from "./MovieListScreen";
-import rootApp from  "./rootApp"
+import scrollTopTabView from  "./scrollTopTabView"
 import   SearchView  from  "./SearchView"
-export default class RootView extends Component {
+import ListViewLearn  from "./ListViewLearn"
+export default class PPYTabNavigator extends Component {
 
     constructor(props) {
         super(props);
         StatusBar.setBarStyle('default')
     }
+    static navigationOptions = {
+        header: null
+    };
 
     render() {
         return (
@@ -23,7 +27,7 @@ export default class RootView extends Component {
 const Tab = TabNavigator(
     {
         First: {
-            screen: MovieListScreen,
+            screen: ListViewLearn,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: '正在热映',
                 tabBarIcon: ({focused, tintColor}) => (
@@ -38,7 +42,7 @@ const Tab = TabNavigator(
 
         },
         Second: {
-            screen: rootApp,
+            screen: scrollTopTabView,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: '即将上映',
                 tabBarIcon: ({focused, tintColor}) => (
@@ -65,6 +69,20 @@ const Tab = TabNavigator(
                 )
             }),
 
+        },
+        Forth: {
+            screen: MovieListScreen,
+            navigationOptions: ({navigation}) => ({
+                tabBarLabel: '即将上映',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItemComponent
+                        tintColor={tintColor}
+                        focused={focused}
+                        normalImage={require('../../assets/image/coming.png')}
+                        selectedImage={require('../../assets/image/coming-active.png')}
+                    />
+                )
+            })
         },
     },
 

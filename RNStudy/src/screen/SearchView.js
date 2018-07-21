@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import Search from '../common/search';
-
 import Swiper from 'react-native-swiper';
-import  {
+import ImagePicker from 'react-native-image-picker';
+import {
     StyleSheet,
     Text,
     View,
     ScrollView,
     Image,
     TouchableOpacity,
+    ListView,
+    Alert,
+    PixelRatio
 
 } from 'react-native';
+import {data} from "./SimpleListScreen";
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
@@ -19,18 +23,26 @@ var banner = [
     'http://oweq6in8r.bkt.clouddn.com/liuliangqiu.jpg',
     'http://oweq6in8r.bkt.clouddn.com/rn.jpeg',
 ];
-var  keywords='';
+
 export default class  SearchView extends Component {
     static navigationOptions = {
         header: null
     };
+
     constructor(props) {
 
         super(props);
+        let ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
         this.state = {
             // dataSource: ds.cloneWithRows([]),                // 承载搜索到的 movies 信息数组
-            // keywords: '西游记',                                // 搜索关键字
-            // show: false                                      // 控制 loading 动画开关
+            keywords: '',                                // 搜索关键字
+            // show: false
+            // 控制 loading 动画开关
+            dataSource: ds.cloneWithRows(data),
+            avatarSource: null
+
         };
 
     }
@@ -54,9 +66,28 @@ export default class  SearchView extends Component {
                 </View>
 
                 {this._renderSwiper()}
-            </ScrollView>
+                <ListView showsVerticalScrollIndicator={false}
+                          showsHorizontalScrollIndicator={true}
+                          horizontal={true}
+                          backgroundColor={'red'}
+                          contentContainerStyle={styles.listView}
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                />
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                        <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 30}]}>
+                            { this.state.avatarSource === null ? <Text>选择照片</Text> :
+                                <Image style={styles.avatar} source={this.state.avatarSource} />
+                            }
+                        </View>
+                    </TouchableOpacity>
 
 
+                </View>
+
+
+                </ScrollView>
 
 
         );
@@ -73,41 +104,110 @@ export default class  SearchView extends Component {
         this.setState({
             keywords: val
         });
+        console.log(val)
     }
 
   //  搜素按钮点击后触发，获取数据
     _search() {
-        alert(keywords)
+
+      alert(this.state.keywords)
         // this._getData();
     }
 
 //创建轮播
     _renderSwiper() {
        return(
-           <Swiper  showsButtons={false} autoplay={true} height={200}
-                    dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
-                    activeDot={<View style={{backgroundColor: 'yellow', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+           <Swiper  showsButtons={false} autoplay={true} height={80}
+                    backgroundColor={'green'}
+                    dot={<View style={{backgroundColor:'rgba(0,0,0,.5)', width: 8, height: 8,borderRadius: 4 }} />}
+                    activeDot={<View style={{backgroundColor: 'yellow', width: 8, height: 8, borderRadius: 4 }} />}
 
                     paginationStyle={{
-                        top: 180, left: null, right: 150
+                        top:185, left: null, right: 200
                     }}>
                <View style={styles.slide1} >
                    <Image
-                       style={styles.image}
+                       style={styles.swiperImage}
                        source={{uri:banner[0]}}
                    />
 
                </View>
                <View style={styles.slide1} >
                    <Image
-                       style={styles.image}
+                       style={styles.swiperImage}
                        source={{uri:banner[1]}}
                    />
                </View>
            </Swiper>
        )
     }
-};
+    //cell单元格
+    _renderRow = (rowData) => {
+        return (
+            <TouchableOpacity style={styles.cellContainer} onPress={() => {
+                Alert.alert(
+                    rowData.title,
+                    '',
+                    [
+                        {text: 'OK', onPress: () => {}},
+                    ]
+                )
+            }}>
+                <Image source={rowData.image} style={styles.image}/>
+                <Text style={styles.title}>{rowData.title}</Text>
+            </TouchableOpacity>
+        )
+    }
+    //选择图片
+     selectPhotoTapped() {
+         const options = {
+             title: '选择图片',
+             cancelButtonTitle: '取消',
+             takePhotoButtonTitle: '拍照',
+             chooseFromLibraryButtonTitle: '选择照片',
+             // customButtons: [
+             //     {name: 'fb', title: 'Choose Photo from Facebook'},
+             // ],
+             cameraType: 'back',
+             mediaType: 'photo',
+             videoQuality: 'high',
+             durationLimit: 10,
+             maxWidth: 300,
+             maxHeight: 300,
+             quality: 0.8,
+             angle: 0,
+             allowsEditing: false,
+             noData: false,
+             storageOptions: {
+                 skipBackup: true
+             }
+         };
+         ImagePicker.showImagePicker(options, (response) => {
+             console.log('Response = ', response);
+
+             if (response.didCancel) {
+                 console.log('User cancelled photo picker');
+             }
+             else if (response.error) {
+                 console.log('ImagePicker Error: ', response.error);
+             }
+             else if (response.customButton) {
+                 console.log('User tapped custom button: ', response.customButton);
+             }
+             else {
+                 let source = {uri: response.uri};
+
+                 // You can also display the image using data:
+                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                 this.setState({
+                     avatarSource: source
+                 });
+             }
+         });
+     }
+
+    };
 
 const styles = StyleSheet.create({
 
@@ -138,16 +238,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
-    img: {
-        width: 80,
-        height: 110,
-        resizeMode: Image.resizeMode.contain,
-    },
-
-    textWidth: {
-        width: 200,
-        marginLeft: 10,
-    },
     slide1: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -155,9 +245,48 @@ const styles = StyleSheet.create({
         height:200
 
     },
-    image: {
+    swiperImage: {
         width:width,
-        flex: 1
+        flex:1
+    },
+    listView: {
+        flexDirection:'row',
+        height:250,
+        // flex:1
+        // flexWrap:'wrap',//允许换行
+        // justifyContent:'space-between',//平均分布在该行
+        // paddingLeft: 20,
+        // paddingRight: 20,
+    },
+    cellContainer: {
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor:'#dcdcdc',
+        width:80,
+        height: 100,
+        marginTop: 10,
+    },
+    image: {
+        width: 60,
+        height: 60,
+    },
+    title: {
+        marginTop: 0,
+    },
+    avatarContainer: {
+            borderColor: '#9B9B9B',
+             borderWidth: 1 / PixelRatio.get(),
+             justifyContent: 'center',
+            alignItems: 'center'
+    },
+
+       avatar: {
+        borderRadius: 50,
+           width: 100,
+           height: 100
     }
+
 
 });

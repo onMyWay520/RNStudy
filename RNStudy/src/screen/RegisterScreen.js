@@ -8,7 +8,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
-
+import LCCountDownButton from "./LCCountDownButton"
 export default class RegisterScreen extends Component {
 
     static navigationOptions = {
@@ -54,6 +54,35 @@ export default class RegisterScreen extends Component {
                     <TextInput
                         ref={(ref) => this.pwdTextField = ref}
                         style={styles.textField}
+                        placeholder={'请输入验证码'}
+                        returnKeyType={'next'}
+                        returnKeyLabel={'next'}
+                        clearButtonMode={'while-editing'}
+                        keyboardType={'default'}
+                        maxLength={4}
+
+                        underlineColorAndroid={'transparent'}
+                        onSubmitEditing={() => {
+                            this.nickNameField.focus();
+                        }}
+                        onChangeText={(text) => {
+                            let str = text.replace(/[^0123456789]/, ''); // 只允许输入数字
+                            this.setState({password: str}); // 替换输入的空格
+                        }}
+                        value={this.state.password}
+                    />
+                    <LCCountDownButton frameStyle={{top:50 + 24,right:20,width:120,height:40,position:'absolute'}}
+                                       beginText='获取验证码'
+                                       endText='再次获取验证码'
+                                       count={10}
+                                       pressAction={()=>{this.countDownButton.startCountDown()}}
+                                       changeWithCount={(count)=> count + 's后重新获取'}
+                                       id='register'
+                                       ref={(e)=>{this.countDownButton=e}}
+                    />
+                    <TextInput
+                        ref={(ref) => this.nickNameField = ref}
+                        style={styles.textField}
                         placeholder={'请输入密码'}
                         returnKeyType={'next'}
                         returnKeyLabel={'next'}
@@ -61,24 +90,6 @@ export default class RegisterScreen extends Component {
                         keyboardType={'default'}
                         maxLength={12}
                         secureTextEntry={true}
-                        underlineColorAndroid={'transparent'}
-                        onSubmitEditing={() => {
-                            this.nickNameField.focus();
-                        }}
-                        onChangeText={(text) => {
-                            this.setState({password: text.replace(/\s/g, '')}); // 替换输入的空格
-                        }}
-                        value={this.state.password}
-                    />
-                    <TextInput
-                        ref={(ref) => this.nickNameField = ref}
-                        style={styles.textField}
-                        placeholder={'请输入店铺名称'}
-                        returnKeyType={'next'}
-                        returnKeyLabel={'next'}
-                        clearButtonMode={'while-editing'}
-                        keyboardType={'default'}
-                        maxLength={12}
                         autoCorrect={false}
                         underlineColorAndroid={'transparent'}
                         onChangeText={(text) => {
@@ -86,6 +97,7 @@ export default class RegisterScreen extends Component {
                         }}
                         value={this.state.nickname}
                     />
+
 
                     <TouchableOpacity  style={styles.submitButton}>
                         <Text style={styles.submitText}>确定</Text>
