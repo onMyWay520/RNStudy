@@ -35,7 +35,7 @@ export default class RegisterScreen extends Component {
                         returnKeyType={'next'}
                         returnKeyLabel={'next'}
                         clearButtonMode={'while-editing'}
-                        keyboardType={'default'}
+                        keyboardType='number-pad'
                         maxLength={11}
                         autoFocus={true}
                         autoCorrect={false}
