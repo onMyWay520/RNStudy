@@ -70,7 +70,6 @@ export  default class   LoginView extends Component{
                 <TouchableOpacity style={styles.btnStyle} onPress={
                     () =>{
                         this.showData()
-                        // this.props.navigation.navigate('PPYTabNavigator')
                         }
 
                 }>
