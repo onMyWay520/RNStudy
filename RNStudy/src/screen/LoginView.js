@@ -111,20 +111,20 @@ export  default class   LoginView extends Component{
     //     this.setState({password:inputdata})
     // }
     showData(){
-        var  phoneStart=this.state.userPhone.indexOf("1");
-        if(phoneStart === -1){
-            alert('请输入正确的手机号,手机号首位必须为1')
-            return;
-        }
-        if(this.state.userPhone.length<11){
-            alert('请输入正确的手机号,手机号不能小于11位')
-            return;
-        }
-        if (this.state.password.length< 6) {
-            alert('密码不能小于6位');
-            return;
-        }
-        else {
+        // var  phoneStart=this.state.userPhone.indexOf("1");
+        // if(phoneStart === -1){
+        //     alert('请输入正确的手机号,手机号首位必须为1')
+        //     return;
+        // }
+        // if(this.state.userPhone.length<11){
+        //     alert('请输入正确的手机号,手机号不能小于11位')
+        //     return;
+        // }
+        // if (this.state.password.length< 6) {
+        //     alert('密码不能小于6位');
+        //     return;
+        // }
+        // else {
             // this.props.navigation.navigate('PPYTabNavigator')
 
             let  sel=this;
@@ -152,8 +152,8 @@ export  default class   LoginView extends Component{
                 console.log(err)
             });
 
-
-        }
+        //
+        // }
     }
 }
 

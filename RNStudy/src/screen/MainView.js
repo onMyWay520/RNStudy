@@ -4,7 +4,8 @@ import SimpleListScreen from "./SimpleListScreen";
 import GridLayoutScreen from "./GridLayoutScreen";
 import SectionListScreen from "./SectionListScreen";
 import GroupListScreen from "./GroupListScreen";
-
+import CircleList  from "./CircleList"
+import MultipleChoiceList from  "./MultipleChoiceList"
 const items = [
     {
         title:'Simple List',
@@ -21,6 +22,14 @@ const items = [
     {
         title:'Section List 2',
         detail: '分组列表，嵌套ListView实现网格'
+    },
+    {
+        title:'单选实现',
+        detail: '单选'
+    },
+    {
+        title:'多选实现',
+        detail: '多选'
     },
 ];
 
@@ -61,6 +70,7 @@ export default class MainView extends Component {
     };
 
     itemPressed(index: Number) {//item点击事件
+
         switch (index) {
             case 0:
                 this.props.navigator.push(
@@ -107,6 +117,36 @@ export default class MainView extends Component {
                         leftButtonTitle: 'Back',
                         onLeftButtonPress: () => {
                             this.props.navigator.pop();
+                        }
+                    }
+                );
+                break;
+            case 4:
+                this.props.navigator.push(
+                    {
+                        component: CircleList,
+                        title: '单选实现',
+                        leftButtonTitle: 'Back',
+                        onLeftButtonPress: () => {
+                            this.props.navigator.pop();
+                        }
+                    }
+                );
+                break;
+            case 5:
+                this.props.navigator.push(
+                    {
+                        component: MultipleChoiceList,
+                        title: '多选实现',
+                        leftButtonTitle: 'Back',
+                        onLeftButtonPress: () => {
+                            this.props.navigator.pop();
+                        },
+                        rightButtonTitle:'编辑',
+                        onRightButtonPress:()=>{
+                            // this.props.showFunction();
+                            // this.editClick()
+                            alert('123')
                         }
                     }
                 );

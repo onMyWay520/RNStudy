@@ -14,7 +14,7 @@ import {
     PixelRatio
 
 } from 'react-native';
-import CountDownTimer from 'react_native_countdowntimer'
+// import CountDownTimer from 'react_native_countdowntimer'
 import {data} from "./SimpleListScreen";
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
@@ -86,20 +86,20 @@ export default class  SearchView extends Component {
 
 
                 </View>
-                <CountDownTimer
-                    //date={new Date(parseInt(endTime))}
-                    date="2018-10-28T00:00:00+00:00"
-                    days={{plural: '天 ',singular: 'day '}}
-                    hours=':'
-                    mins=':'
-                    segs=''
-                    daysStyle={styles.time}
-                    hoursStyle={styles.time}
-                    minsStyle={styles.time}
-                    secsStyle={styles.time}
-                    // firstColonStyle={styles.colon}
-                    // secondColonStyle={styles.colon}
-                />
+                {/*<CountDownTimer*/}
+                    {/*//date={new Date(parseInt(endTime))}*/}
+                    {/*date="2018-10-28T00:00:00+00:00"*/}
+                    {/*days={{plural: '天 ',singular: 'day '}}*/}
+                    {/*hours=':'*/}
+                    {/*mins=':'*/}
+                    {/*segs=''*/}
+                    {/*daysStyle={styles.time}*/}
+                    {/*hoursStyle={styles.time}*/}
+                    {/*minsStyle={styles.time}*/}
+                    {/*secsStyle={styles.time}*/}
+                    {/*// firstColonStyle={styles.colon}*/}
+                    {/*// secondColonStyle={styles.colon}*/}
+                {/*/>*/}
 
                 </ScrollView>
 
