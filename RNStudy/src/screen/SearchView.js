@@ -142,6 +142,7 @@ export default class  SearchView extends Component {
                <View style={styles.slide1} >
                    <Image
                        style={styles.swiperImage}
+                       resizeMode="stretch"
                        source={{uri:banner[0]}}
                    />
 
@@ -149,6 +150,7 @@ export default class  SearchView extends Component {
                <View style={styles.slide1} >
                    <Image
                        style={styles.swiperImage}
+                       resizeMode="stretch"
                        source={{uri:banner[1]}}
                    />
                </View>

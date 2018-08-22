@@ -6,6 +6,7 @@ import  {
     Text,
     TextInput,
     TouchableOpacity,
+    AsyncStorage
 } from  'react-native'
 import PPYTabNavigator from './PPYTabNavigator'
 import RegisterScreen from './RegisterScreen'
@@ -105,26 +106,24 @@ export  default class   LoginView extends Component{
         console.log("输入密码",newPassword);//运行后可以在输入框随意输入内容并且查看log验证！
         this.state.password = newPassword;
     };
-    // _onChangeText1(inputdata){
-    //     console.log("输入的内容",inputdata);
-    //     //把获取到的内容，设置给showValue
-    //     this.setState({password:inputdata})
-    // }
+
+
     showData(){
-        // var  phoneStart=this.state.userPhone.indexOf("1");
-        // if(phoneStart === -1){
-        //     alert('请输入正确的手机号,手机号首位必须为1')
-        //     return;
-        // }
-        // if(this.state.userPhone.length<11){
-        //     alert('请输入正确的手机号,手机号不能小于11位')
-        //     return;
-        // }
-        // if (this.state.password.length< 6) {
-        //     alert('密码不能小于6位');
-        //     return;
-        // }
-        // else {
+        var  phoneStart=this.state.userPhone.indexOf("1");
+        if(phoneStart === -1){
+            alert('请输入正确的手机号,手机号首位必须为1')
+            return;
+        }
+        if(this.state.userPhone.length<11){
+            alert('请输入正确的手机号,手机号不能小于11位')
+            return;
+        }
+        if (this.state.password.length< 6) {
+            alert('密码不能小于6位');
+            return;
+        }
+        else {
+            this.save();
             // this.props.navigation.navigate('PPYTabNavigator')
 
             let  sel=this;
@@ -152,8 +151,21 @@ export  default class   LoginView extends Component{
                 console.log(err)
             });
 
-        //
-        // }
+
+        }
+    }
+    //保存数据
+    save() {
+        //设置多项
+        var keyValuePairs = [['userPhone', this.state.userPhone], ['password', this.state.password]]
+        AsyncStorage.multiSet(keyValuePairs, function(errs){
+            if(errs){
+                //TODO：存储出错
+                console.log('数据保存失败');
+                return;
+            }
+            console.log('数据保存成功!');
+        });
     }
 }
 

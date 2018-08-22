@@ -7,7 +7,8 @@ import {
     ListView,
     Text,
     Image,
-    Button
+    Button,
+    DeviceEventEmitter
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -25,19 +26,18 @@ var collectionArray = [
     {collectItem: "collectItem10"}
 ];
 
-export default class MultipleChoiceList  extends React.Component {
+export default class MultipleChoiceList  extends Component {
 
-    // static navigationOptions =  ({navigation,screenProps}) =>({
-    //
-    //     headerRight: <Button
-    //
-    //         color =  "#3281DD"
-    //         onPress={()=>navigation.state.params.showFunction()}
-    //         title="编辑"
-    //     />,
-    //     headerTitle:"多选实现"
-    ////https://blog.csdn.net/runrun117/article/details/80351236
-    // });
+    static navigationOptions =  ({navigation,screenProps}) =>({
+        headerRight: <Button
+
+            color =  "#3281DD"
+            onPress={()=>navigation.state.params.showFunction()}
+            title="编辑"
+        />,
+        title:"多选实现22",
+    //https://blog.csdn.net/runrun117/article/details/80351236
+    });
 
     constructor(props) {
         super(props);
@@ -59,6 +59,9 @@ export default class MultipleChoiceList  extends React.Component {
             dataSource: this.state.dataSource.cloneWithRows(collectionArray)
 
         })
+        // DeviceEventEmitter.emit('edit’,editClick())
+        // this.subscription = DeviceEventEmitter.addListener('edit’,this.editClick)
+
         // this.props.navigation.setParams({navigatePress:this.showFunction()})
 
     }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {View, ListView, Text, TouchableOpacity, StyleSheet, Button ,NavigatorIOS} from 'react-native';
+import {View, ListView, Text, TouchableOpacity, StyleSheet, Button ,NavigatorIOS,StackNavigator,NavigationActions,DeviceEventEmitter} from 'react-native';
 import SimpleListScreen from "./SimpleListScreen";
 import GridLayoutScreen from "./GridLayoutScreen";
 import SectionListScreen from "./SectionListScreen";
 import GroupListScreen from "./GroupListScreen";
 import CircleList  from "./CircleList"
 import MultipleChoiceList from  "./MultipleChoiceList"
+import  listViewSwipe  from  "./listViewSwipe"
 const items = [
     {
         title:'Simple List',
@@ -30,6 +31,10 @@ const items = [
     {
         title:'多选实现',
         detail: '多选'
+    },
+    {
+        title:'侧滑',
+        detail: '侧滑删除'
     },
 ];
 
@@ -140,19 +145,42 @@ export default class MainView extends Component {
                         title: '多选实现',
                         leftButtonTitle: 'Back',
                         onLeftButtonPress: () => {
-                            this.props.navigator.pop();
+                            // this.props.navigator.pop();
+                            this.props.navigator.popToTop();
+
                         },
                         rightButtonTitle:'编辑',
                         onRightButtonPress:()=>{
-                            // this.props.showFunction();
-                            // this.editClick()
-                            alert('123')
+                            console.log('1234')
+                            // this.props.navigator.showFunction();
+                            // this.editClick()。
+
+                            // alert('123')
+                        }
+                 }
+
+
+            );
+
+                break;
+            case 6:
+                this.props.navigator.push(
+                    {
+                        component: listViewSwipe,
+                        title: '侧滑',
+                        leftButtonTitle: 'Back',
+                        onLeftButtonPress: () => {
+                            this.props.navigator.pop();
                         }
                     }
                 );
                 break;
         }
     }
+    // componentWillUnmount() {
+    //     this.subscription.remove();
+    // }
+
 }
 
 const styles = StyleSheet.create({

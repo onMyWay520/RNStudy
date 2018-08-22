@@ -13,7 +13,8 @@ export default class ListViewLearn extends Component {
             <NavigatorIOS
                 initialRoute={{
                     component: MainView,
-                    title: 'ListViewExample'
+                    title: 'ListViewExample',
+                    rightButtonTitle:'右侧'
 
                 }}
                 style={{flex: 1}}
