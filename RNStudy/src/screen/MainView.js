@@ -7,6 +7,7 @@ import GroupListScreen from "./GroupListScreen";
 import CircleList  from "./CircleList"
 import MultipleChoiceList from  "./MultipleChoiceList"
 import  listViewSwipe  from  "./listViewSwipe"
+import  PPYWebView from  "./PPYWebView"
 const items = [
     {
         title:'Simple List',
@@ -35,6 +36,10 @@ const items = [
     {
         title:'侧滑',
         detail: '侧滑删除'
+    },
+    {
+        title:'webView',
+        detail: 'webview'
     },
 ];
 
@@ -175,12 +180,23 @@ export default class MainView extends Component {
                     }
                 );
                 break;
-        }
-    }
-    // componentWillUnmount() {
-    //     this.subscription.remove();
-    // }
+            case 7:
 
+                this.props.navigator.push(
+                    {
+                        component: PPYWebView,
+                        title: '网页啊',
+                        leftButtonTitle: 'Back',
+                        onLeftButtonPress: () => {
+                            this.props.navigator.pop();
+                        }
+                    }
+                );
+                break;
+          }
+
+
+    }
 }
 
 const styles = StyleSheet.create({

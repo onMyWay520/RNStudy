@@ -23,6 +23,7 @@ export  default class   rootApp extends Component{
     componentDidMount(){
         var keys = ["userPhone","password"];
         var  that=this;
+        // debugger
         //根据键数组查询保存的键值对
         AsyncStorage.multiGet(keys, function(errs, result){
             //如果发生错误，这里直接返回（return）防止进入下面的逻辑
