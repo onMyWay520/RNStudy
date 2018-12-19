@@ -12,4 +12,4 @@ RN项目介绍<br>
 8.借助三方react-native-swiper，轮播效果实现，详情SearchView.js<br> 
 9.选择图片功能实现，详情SearchView.js<br> 
 持续更新，喜欢的start，谢谢！<br> 
-![enter description here](https://upload-images.jianshu.io/upload_images/2126823-bad2d7be741d520b.gif?imageMogr2/auto-orient/strip)
+![conv_ops](https://upload-images.jianshu.io/upload_images/2126823-bad2d7be741d520b.gif?imageMogr2/auto-orient/strip)
