@@ -1,4 +1,4 @@
-项目介绍<br> 
+RN项目介绍<br> 
 1.登录注册实现<br>
 2.TabNavigator实现tabbar的来回切换,详情PPYTabNavigator.js<br>
 3.常用控件ListView列表的实现，详情MainView.js<br> 
@@ -11,3 +11,5 @@
 7.分组显示列表实现，详情SectionListScreen.js<br> 
 8.借助三方react-native-swiper，轮播效果实现，详情SearchView.js<br> 
 9.选择图片功能实现，详情SearchView.js<br> 
+持续更新，喜欢的start，谢谢！<br> 
+![enter description here](https://upload-images.jianshu.io/upload_images/2126823-bad2d7be741d520b.gif?imageMogr2/auto-orient/strip)
