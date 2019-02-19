@@ -6,10 +6,6 @@ import  {
     Text,
     TextInput,
     TouchableOpacity,
-<<<<<<< HEAD
-} from  'react-native'
-import RegisterScreen from './RegisterScreen'
-=======
     AsyncStorage
 } from  'react-native'
 import PPYTabNavigator from './PPYTabNavigator'
@@ -26,18 +22,10 @@ import RegisterScreen from './RegisterScreen'
  * 注意：要使stretch选项生效的话，子元素在次轴方向上不能有固定的尺寸。
  *
  */
->>>>>>> basicStudy
 
 var dimensions=require('Dimensions');
 var  {width}=dimensions.get('window');
 export  default class   LoginView extends Component{
-<<<<<<< HEAD
-    static navigationOptions = {
-        title: '登录',//设置标题内容
-    };
-    render(){
-        // const { navi } = this.props.navigation;
-=======
 
     static navigationOptions = ({navigation, screenProps}) => ({
         //左侧标题
@@ -58,13 +46,10 @@ export  default class   LoginView extends Component{
         }
     }
     render(){
->>>>>>> basicStudy
         return(
             <View style={styles.container}>
                 <Image style={styles.circleImage} source={require('../../assets/image/Loginlogo.png')}/>
                <TextInput style={styles.phoneTextInput} placeholder={'请输入您的手机号'}
-<<<<<<< HEAD
-=======
 
                           onChangeText={this.onUsernameChanged}//输入框改变触发的函数
                           maxLength={11}
@@ -72,20 +57,11 @@ export  default class   LoginView extends Component{
                           editable={true}//是否可编辑
                           clearButtonMode="while-editing"
 
->>>>>>> basicStudy
                />
                 {/*密码*/}
                 <TextInput
                     style={styles.pswTextInput}
                     placeholder={'请输入登录密码'}
-<<<<<<< HEAD
-                    secureTextEntry={true}/>
-                {/*登录*/}
-                <TouchableOpacity style={styles.btnStyle} onPress={
-                    () =>{
-                        // this.props.navigation.navigate('RootView')
-                        // this.props.navigation.dispatch(navigationAction)
-=======
                     clearButtonMode="while-editing"
                     secureTextEntry={true}
                     onChangeText={this.onPasswordChanged}//输入框改变触发的函数
@@ -95,7 +71,6 @@ export  default class   LoginView extends Component{
                 <TouchableOpacity style={styles.btnStyle} onPress={
                     () =>{
                         this.showData()
->>>>>>> basicStudy
                         }
 
                 }>
@@ -118,16 +93,6 @@ export  default class   LoginView extends Component{
             </View>
         )
     }
-<<<<<<< HEAD
-}
-// const navigationAction = NavigationActions.reset({
-//     index:0,
-//     actions: [
-//         NavigationActions.navigate({routeName: 'RootView'}),
-//     ],
-//
-// })
-=======
     _onChangeText(inputData){
         console.log("输入的内容",inputData);
         //把获取到的内容，设置给showValue
@@ -203,7 +168,6 @@ export  default class   LoginView extends Component{
         });
     }
 }
->>>>>>> basicStudy
 
 const styles=StyleSheet.create(
        {

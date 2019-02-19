@@ -8,11 +8,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
-<<<<<<< HEAD
-
-=======
 import LCCountDownButton from "./LCCountDownButton"
->>>>>>> basicStudy
 export default class RegisterScreen extends Component {
 
     static navigationOptions = {
@@ -39,11 +35,7 @@ export default class RegisterScreen extends Component {
                         returnKeyType={'next'}
                         returnKeyLabel={'next'}
                         clearButtonMode={'while-editing'}
-<<<<<<< HEAD
-                        keyboardType={'default'}
-=======
                         keyboardType='number-pad'
->>>>>>> basicStudy
                         maxLength={11}
                         autoFocus={true}
                         autoCorrect={false}
@@ -62,37 +54,18 @@ export default class RegisterScreen extends Component {
                     <TextInput
                         ref={(ref) => this.pwdTextField = ref}
                         style={styles.textField}
-<<<<<<< HEAD
-                        placeholder={'请输入密码'}
-=======
                         placeholder={'请输入验证码'}
->>>>>>> basicStudy
                         returnKeyType={'next'}
                         returnKeyLabel={'next'}
                         clearButtonMode={'while-editing'}
                         keyboardType={'default'}
-<<<<<<< HEAD
-                        maxLength={12}
-                        secureTextEntry={true}
-=======
                         maxLength={4}
 
->>>>>>> basicStudy
                         underlineColorAndroid={'transparent'}
                         onSubmitEditing={() => {
                             this.nickNameField.focus();
                         }}
                         onChangeText={(text) => {
-<<<<<<< HEAD
-                            this.setState({password: text.replace(/\s/g, '')}); // 替换输入的空格
-                        }}
-                        value={this.state.password}
-                    />
-                    <TextInput
-                        ref={(ref) => this.nickNameField = ref}
-                        style={styles.textField}
-                        placeholder={'请输入店铺名称'}
-=======
                             let str = text.replace(/[^0123456789]/, ''); // 只允许输入数字
                             this.setState({password: str}); // 替换输入的空格
                         }}
@@ -111,16 +84,12 @@ export default class RegisterScreen extends Component {
                         ref={(ref) => this.nickNameField = ref}
                         style={styles.textField}
                         placeholder={'请输入密码'}
->>>>>>> basicStudy
                         returnKeyType={'next'}
                         returnKeyLabel={'next'}
                         clearButtonMode={'while-editing'}
                         keyboardType={'default'}
                         maxLength={12}
-<<<<<<< HEAD
-=======
                         secureTextEntry={true}
->>>>>>> basicStudy
                         autoCorrect={false}
                         underlineColorAndroid={'transparent'}
                         onChangeText={(text) => {
@@ -129,10 +98,7 @@ export default class RegisterScreen extends Component {
                         value={this.state.nickname}
                     />
 
-<<<<<<< HEAD
-=======
 
->>>>>>> basicStudy
                     <TouchableOpacity  style={styles.submitButton}>
                         <Text style={styles.submitText}>确定</Text>
                     </TouchableOpacity>
