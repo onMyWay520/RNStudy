@@ -19,12 +19,12 @@ export default class MovieListScreen extends Component {
 
     componentDidMount() {
         /// 根据routeName来判断当前是哪个界面，react-navigation中可以通过navigation.state.routeName来获取
-        let routeName = this.props.navigation.state.routeName;
-        if (routeName === 'First') {
-            this.loadDisplayingMovies();
-        } else {
-            this.loadComingMovies();
-        }
+        // let routeName = this.props.navigation.state.routeName;
+        // if (routeName === 'First') {
+        //     this.loadDisplayingMovies();
+        // } else {
+        //     this.loadComingMovies();
+        // }
     }
 
     render() {

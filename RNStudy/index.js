@@ -1,4 +1,5 @@
 import { AppRegistry } from 'react-native';
-import rootApp  from './src/screen/rootApp'
-// import LoginView  from './src/screen/LoginView'
-AppRegistry.registerComponent('RNStudy', () => rootApp);
+import listViewSwipe  from './src/screen/ListViewLearn';
+// 关闭全部黄色警告
+console.disableYellowBox = true;
+AppRegistry.registerComponent('RNStudy', () => listViewSwipe);

@@ -47,6 +47,7 @@ export  default class   LoginView extends Component{
     }
     render(){
         return(
+            
             <View style={styles.container}>
                 <Image style={styles.circleImage} source={require('../../assets/image/Loginlogo.png')}/>
                <TextInput style={styles.phoneTextInput} placeholder={'请输入您的手机号'}

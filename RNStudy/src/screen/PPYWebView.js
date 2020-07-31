@@ -5,7 +5,7 @@ import { AppRegistry,
     Text,
     View,
    } from 'react-native';
-var  DEFAULT_URL ='http://www.baidu.com';
+var  DEFAULT_URL ='https://www.baidu.com';
 
 // const HTML = `<!DOCTYPEhtml>\n <html>\n <head>\n
 //     <title>HTML字符串</title>\n
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
     webview_style: {
 
-        backgroundColor:'#00ff00',
+        backgroundColor:'#fff',
 
     }
 
