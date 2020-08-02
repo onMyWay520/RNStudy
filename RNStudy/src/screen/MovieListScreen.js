@@ -5,9 +5,9 @@ import MovieItemCell from "../widgets/MovieItemCell";
 
 export default class MovieListScreen extends Component {
 
-    static navigationOptions = {
-        headerTitle: '豆瓣电影'
-    };
+    // static navigationOptions = {
+    //     headerTitle: '豆瓣电影'
+    // };
 
     constructor(props) {
         super(props);
@@ -23,7 +23,7 @@ export default class MovieListScreen extends Component {
         // if (routeName === 'First') {
         //     this.loadDisplayingMovies();
         // } else {
-        //     this.loadComingMovies();
+            this.loadComingMovies();
         // }
     }
 
@@ -48,7 +48,8 @@ export default class MovieListScreen extends Component {
     _renderItem = (item) => {
         return (
             <MovieItemCell movie={item.item} onPress={() => {
-                console.log('点击了电影----' + item.item.title);
+                alert('点击了电影----' + item.item.title);
+                // console.log('点击了电影----' + item.item.title);
             }}/>
         )
     };

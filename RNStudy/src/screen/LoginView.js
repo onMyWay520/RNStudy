@@ -8,8 +8,10 @@ import  {
     TouchableOpacity,
     AsyncStorage
 } from  'react-native'
-import PPYTabNavigator from './PPYTabNavigator'
-import RegisterScreen from './RegisterScreen'
+// import PPYTabNavigator from './PPYTabNavigator'
+// import RegisterScreen from './RegisterScreen'
+import {navigate} from "../navigation/RootNavigation";
+import {Routers} from "../navigation/RouteStack";
 /**
  *使用Flexbox布局
  *
@@ -82,7 +84,9 @@ export  default class   LoginView extends Component{
 
                     <TouchableOpacity style={styles.registerTextStyle} onPress={
                         () =>{
-                            this.props.navigation.navigate('RegisterScreen')
+
+                            // this.props.navigation.navigate('RegisterScreen')
+                            navigate(Routers.RegisterScreen)
                         }
 
                     }>

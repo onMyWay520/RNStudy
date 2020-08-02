@@ -26,9 +26,9 @@ var banner = [
 ];
 
 export default class  SearchView extends Component {
-    static navigationOptions = {
-        header: null
-    };
+    // static navigationOptions = {
+    //     header: null
+    // };
 
     constructor(props) {
 
@@ -70,7 +70,7 @@ export default class  SearchView extends Component {
                 <ListView showsVerticalScrollIndicator={false}
                           showsHorizontalScrollIndicator={true}
                           horizontal={true}
-                          backgroundColor={'red'}
+                          backgroundColor={'white'}
                           contentContainerStyle={styles.listView}
                     dataSource={this.state.dataSource}
                     renderRow={this._renderRow}

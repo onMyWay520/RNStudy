@@ -16,7 +16,10 @@ export default class MovieItemCell extends Component {//自定义单元格
           />
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{movie.title}</Text>
-            <Text style={styles.year}>{movie.year}</Text>
+            <View style={styles.horizontalView}>
+              <Text style={styles.titleTag}>年份：</Text>
+              <Text style={styles.name}>{movie.year}</Text>
+            </View>
             {
               hasAverageScore ?
                 (<View style={styles.horizontalView}>
@@ -52,8 +55,8 @@ const styles = StyleSheet.create({
     borderColor: Color.separatorColor
   },
   thumbnail: {
-    width: 110,
-    height: 150,
+    width: 100,
+    height: 120,
     backgroundColor: '#f0f0f0',
   },
   rightContainer: {

@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     cellContainer: {
-        padding: 10,
+        padding: 16,
         borderBottomWidth: 1,
         borderColor: '#dcdcdc'
     },

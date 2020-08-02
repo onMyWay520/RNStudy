@@ -11,9 +11,9 @@ import {
 import LCCountDownButton from "./LCCountDownButton"
 export default class RegisterScreen extends Component {
 
-    static navigationOptions = {
-        headerTitle: '注册'
-    };
+    // static navigationOptions = {
+    //     headerTitle: '注册'
+    // };
 
     constructor(props) {
         super(props);
