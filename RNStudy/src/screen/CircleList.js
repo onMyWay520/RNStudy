@@ -35,7 +35,7 @@ export default class CircleList extends PureComponent {
             <View style={{height: 44, flex: 1}}>
                 <RadioGroup
                     style={{flexDirection: 'row'}}//整个组件的样式----这样可以垂直和水平
-                    conTainStyle={{height: 84, width: 60}}//图片和文字的容器样式
+                    conTainStyle={{height: 84, width: 100}}//图片和文字的容器样式
                     imageStyle={{width: 25, height: 25}}//图片样式
                     textStyle={{color: 'black'}}//文字样式
                     selectIndex={''}//空字符串,表示不选中,数组索引表示默认选中

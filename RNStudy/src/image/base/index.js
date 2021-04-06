@@ -1,5 +1,5 @@
 export const base = {
-    ic_back_black: require('./backnarrow_white.png'),
+    ic_back_black: require('./ic_back_black.png'),
     ic_arrow_right: require('./ic_arrow_right.png'),
     defaultImg: require('./defaultImg.png'),
     defaultAvatar: require('./defaultAvatar.png'),

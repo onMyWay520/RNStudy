@@ -1,33 +1,23 @@
 import React, {Component} from 'react';
-import {
-    TextInput,
-    TouchableOpacity,
-    Keyboard,
-    Text,
-    KeyboardAvoidingView,
-    Dimensions,
-    StyleSheet
-} from 'react-native';
-import LCCountDownButton from "./LCCountDownButton"
-export default class RegisterScreen extends Component {
-
-    // static navigationOptions = {
-    //     headerTitle: '注册'
-    // };
-
+import {Dimensions, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
+import LCCountDownButton from './LCCountDownButton';
+import BasePage from './BasePage'
+export default class RegisterScreen extends BasePage {
     constructor(props) {
         super(props);
         this.state = {
             phone: '',
             password: '',
             nickname: '',
-        }
+        };
     }
 
     render() {
         return (
-            <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => {Keyboard.dismiss()}}>
-                <KeyboardAvoidingView style={{flex: 1, width:screenWidth }} behavior={'padding'}>
+            <TouchableOpacity activeOpacity={1} style={styles.container} onPress={() => {
+                Keyboard.dismiss();
+            }}>
+                <KeyboardAvoidingView style={{flex: 1, width: screenWidth}} behavior={'padding'}>
                     <TextInput
                         ref={(ref) => this.phoneTextField = ref}
                         style={styles.textField}
@@ -46,8 +36,8 @@ export default class RegisterScreen extends Component {
                         onChangeText={(text) => {
                             let str = text.replace(/[^0123456789]/, ''); // 只允许输入数字
                             this.setState({
-                                phone: str
-                            })
+                                phone: str,
+                            });
                         }}
                         value={this.state.phone}
                     />
@@ -60,7 +50,6 @@ export default class RegisterScreen extends Component {
                         clearButtonMode={'while-editing'}
                         keyboardType={'default'}
                         maxLength={4}
-
                         underlineColorAndroid={'transparent'}
                         onSubmitEditing={() => {
                             this.nickNameField.focus();
@@ -71,14 +60,19 @@ export default class RegisterScreen extends Component {
                         }}
                         value={this.state.password}
                     />
-                    <LCCountDownButton frameStyle={{top:50 + 24,right:20,width:120,height:40,position:'absolute'}}
-                                       beginText='获取验证码'
-                                       endText='再次获取验证码'
-                                       count={10}
-                                       pressAction={()=>{this.countDownButton.startCountDown()}}
-                                       changeWithCount={(count)=> count + 's后重新获取'}
-                                       id='register'
-                                       ref={(e)=>{this.countDownButton=e}}
+                    <LCCountDownButton
+                        frameStyle={{top: 50 + 24, right: 20, width: 120, height: 40, position: 'absolute'}}
+                        beginText='获取验证码'
+                        endText='再次获取验证码'
+                        count={10}
+                        pressAction={() => {
+                            this.countDownButton.startCountDown();
+                        }}
+                        changeWithCount={(count) => count + 's后重新获取'}
+                        id='register'
+                        ref={(e) => {
+                            this.countDownButton = e;
+                        }}
                     />
                     <TextInput
                         ref={(ref) => this.nickNameField = ref}
@@ -99,12 +93,12 @@ export default class RegisterScreen extends Component {
                     />
 
 
-                    <TouchableOpacity  style={styles.submitButton}>
+                    <TouchableOpacity style={styles.submitButton}>
                         <Text style={styles.submitText}>确定</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </TouchableOpacity>
-        )
+        );
     }
 }
 
@@ -113,11 +107,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f0f0f0',
-        alignItems:'center',
-justifyContent:'center'
-},
-textField: {
-    backgroundColor:'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textField: {
+        backgroundColor: 'white',
         height: 50,
         borderWidth: 1,
         borderRadius: 5,
@@ -127,21 +121,21 @@ textField: {
         marginRight: 20,
         paddingLeft: 20,
         paddingRight: 20,
-        fontSize:16
-},
-submitButton: {
-    backgroundColor:'#2a7fd5',
+        fontSize: 16,
+    },
+    submitButton: {
+        backgroundColor: '#2a7fd5',
         height: 50,
         borderRadius: 5,
         marginTop: 20,
         marginLeft: 10,
         marginRight: 10,
-        alignItems:'center',
-        justifyContent:'center'
-},
-submitText: {
-    fontSize: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    submitText: {
+        fontSize: 16,
         fontWeight: 'bold',
-        color: 'white'
-}
+        color: 'white',
+    },
 });

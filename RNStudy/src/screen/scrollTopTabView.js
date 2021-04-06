@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import GridLayoutScreen from "./GridLayoutScreen";
 import SectionListScreen from "./SectionListScreen";
-import GroupListScreen from "./GroupListScreen";
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 
@@ -29,7 +28,6 @@ export default class scrollTopTabView extends Component {
             >
                 <GridLayoutScreen tabLabel='娱乐'  />
                 <SectionListScreen tabLabel='科技'/>
-                <GroupListScreen tabLabel='军事'/>
                 <GridLayoutScreen tabLabel='电影'/>
             </ScrollableTabView>
         );

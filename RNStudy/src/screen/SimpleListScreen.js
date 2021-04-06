@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
-import {View, ListView, Image, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
-
+import {View, FlatList, Image, Text, TouchableOpacity, StyleSheet, Alert,BackHandler} from 'react-native';
+import {backToHome, navigate} from '../navigation/RootNavigation';
+import storage from '../utils/Storage';
+import {tokenKey} from '../utils/ConstantUtils';
+import {Routers} from '../navigation/RouteStack';
+import {ToastShow} from '../utils/ToastUtils';
 export const data = [
   {
     image:require('../../src/image/beer.png'),
@@ -77,41 +81,41 @@ export const data = [
 ];
 
 export default class SimpleListScreen extends Component {
-  
+
   constructor(props) {
     super(props);
-    let ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.state = {
-      dataSource: ds.cloneWithRows(data)
-    }
   }
-  
+  componentDidMount() {
+
+
+  }
+  _onRefresh(){
+
+  }
   render() {
     return (
       <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
+        <FlatList
+            data={data}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({item}) => this._renderRow(item)}
         />
       </View>
     )
   }
-  
-  _renderRow = (rowData) => {
+  _renderRow = (item) => {
     return (
       <TouchableOpacity style={styles.cellContainer} onPress={() => {
         Alert.alert(
-          rowData.title,
+            item.title,
           '',
           [
             {text: 'OK', onPress: () => {}},
           ]
         )
       }}>
-        <Image source={rowData.image} style={styles.image}/>
-        <Text style={styles.title}>{rowData.title}</Text>
+        <Image source={item.image} style={styles.image}/>
+        <Text style={styles.title}>{item.title}</Text>
       </TouchableOpacity>
     )
   }

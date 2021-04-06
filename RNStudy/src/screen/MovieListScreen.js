@@ -4,11 +4,6 @@ import {queryMovies, comingMovies} from '../common/Service';
 import MovieItemCell from "../widgets/MovieItemCell";
 
 export default class MovieListScreen extends Component {
-
-    // static navigationOptions = {
-    //     headerTitle: '豆瓣电影'
-    // };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +11,6 @@ export default class MovieListScreen extends Component {
             loaded: false,  // 用来控制loading视图的显示，当数据加载完成，loading视图不再显示
         };
     }
-
     componentDidMount() {
         /// 根据routeName来判断当前是哪个界面，react-navigation中可以通过navigation.state.routeName来获取
         // let routeName = this.props.navigation.state.routeName;

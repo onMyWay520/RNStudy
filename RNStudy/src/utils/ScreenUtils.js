@@ -18,15 +18,18 @@ const MIN_SCREEN = Math.min(width, height);
 
 const iphoneX = Platform.OS === 'ios' && (MIN_SCREEN === 375.0 && MAX_SCREEN === 812.0);
 const iphoneMax = Platform.OS === 'ios' && (MIN_SCREEN === 414.0 && MAX_SCREEN === 896.0);
+const iphone12 = Platform.OS === 'ios' && (MIN_SCREEN === 390.0 && MAX_SCREEN === 844.0);
+const iphone12ProMax = Platform.OS === 'ios' && (MIN_SCREEN === 428.0 && MAX_SCREEN === 926.0);
+
 // 计算手机屏幕宽度对应设计图宽度的单位宽度
 export const unitWidth = width / designWidth;
 // 计算手机屏幕高度对应设计图高度的单位高度
 export const unitHeight = height / designHeight;
 
 export const statusBarHeight = getStatusBarHeight();
-export const safeAreaViewHeight = (iphoneX || iphoneMax) ? 34 : 0;
+export const safeAreaViewHeight = (iphoneX || iphoneMax || iphone12 || iphone12ProMax) ? 34 : 0;
 // 标题栏的高度
-export const titleHeight = 44 + statusBarHeight;
+export const titleHeight = 44 + statusBarHeight ;
 
 // 字体缩放比例，一般情况下不用考虑。
 // 当应用中的字体需要根据手机设置中字体大小改变的话需要用到缩放比例
@@ -37,12 +40,18 @@ export function getStatusBarHeight() {
     if (Platform.OS == 'android') {
         return StatusBar.currentHeight;
     }
-    if (iphoneX || iphoneMax) {
+    if (iphoneX || iphoneMax || iphone12 || iphone12ProMax) {
         return 44;
     }
     return 20;
 }
-
+// 底部栏的高度
+export function getTabBarBottomHeight() {
+    if (iphoneX || iphoneMax || iphone12 || iphone12ProMax) {
+        return 34;
+    }
+    return 0
+}
 export function scaleSize(size) {
     return unitWidth * size;
 }

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {View, ListView, TouchableOpacity, Image, Text, StyleSheet, Alert} from 'react-native';
-import {data} from "./SimpleListScreen";
-
+import {View, SectionList, TouchableOpacity, Image, Text, StyleSheet, Alert} from 'react-native';
 export const vegetables = [
   {
     image:require('../../src/image/chili.png'),
@@ -80,36 +78,40 @@ export const others = [
     title:'披萨',
   },
 ];
-
+const dataSource = [{
+  title:'蔬菜',
+  data : vegetables
+}, {
+  title:'水果',
+  data : fruits
+}, {
+  title:'其它',
+  data : others
+}];
 export default class SectionListScreen extends Component {
-  
+
   constructor(props) {
     super(props);
-    let ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2//多个section
-    });
-    let data = [vegetables, fruits, [others]];
-    this.state = {
-      dataSource: ds.cloneWithRowsAndSections(data)
-    }
   }
-  
+
   render() {
     return (
       <View style={{flex: 1}}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderSectionHeader={this._renderSectionHeader}//区头
+        <SectionList
+            sections={dataSource}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({item}) => this._renderRow(item)}
+            renderSectionHeader={({section: { title }})=>(
+                <View style={styles.sectionHeader}>
+              <Text>{title}</Text>
+            </View>)}//区头
         />
       </View>
     )
   }
-  
-  _renderRow = (item, sectionId) => {
-    let sectionIndex = Number(sectionId);
-    if (sectionIndex === 2) {
+
+  _renderRow = (item, index) => {
+    if (index === 2) {
       return (
         <View style={styles.gridContainer}>
           {
@@ -147,27 +149,6 @@ export default class SectionListScreen extends Component {
         <Image source={item.image} style={styles.image}/>
         <Text style={styles.title}>{item.title}</Text>
       </TouchableOpacity>
-    )
-  };
-  
-  _renderSectionHeader = (sectionData, sectionId) => {
-    let sectionIndex = Number(sectionId);
-    let category = '';
-    switch (sectionIndex) {
-      case 0:
-        category = '蔬菜';
-        break;
-      case 1:
-        category = '水果';
-        break;
-      case 2:
-        category = '其它';
-        break;
-    }
-    return (
-      <View style={styles.sectionHeader}>
-        <Text>{category}</Text>
-      </View>
     )
   };
 }

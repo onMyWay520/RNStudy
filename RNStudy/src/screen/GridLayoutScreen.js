@@ -1,31 +1,27 @@
 import React, {Component} from 'react';
-import {View, Alert, ListView, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Alert, FlatList, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {data} from "./SimpleListScreen";
 
 export default class GridLayoutScreen extends Component {
-  
+
   constructor(props) {
     super(props);
-    let ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.state = {
-      dataSource: ds.cloneWithRows(data)
-    }
+
   }
-  
+
   render() {
     return (
       <View style={{ flex: 1}}>
-        <ListView
+        <FlatList
           contentContainerStyle={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
+          data={data}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({item}) => this._renderRow(item)}
         />
       </View>
     )
   }
-  
+
   _renderRow = (rowData) => {
     return (
       <TouchableOpacity style={styles.cellContainer} onPress={() => {

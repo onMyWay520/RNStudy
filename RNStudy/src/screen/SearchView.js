@@ -9,13 +9,12 @@ import {
     ScrollView,
     Image,
     TouchableOpacity,
-    ListView,
+    FlatList,
     Alert,
     PixelRatio
 
 } from 'react-native';
 // import CountDownTimer from 'react_native_countdowntimer'
-import {data} from "./SimpleListScreen";
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
@@ -26,24 +25,13 @@ var banner = [
 ];
 
 export default class  SearchView extends Component {
-    // static navigationOptions = {
-    //     header: null
-    // };
-
     constructor(props) {
 
         super(props);
-        let ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
         this.state = {
-            // dataSource: ds.cloneWithRows([]),                // 承载搜索到的 movies 信息数组
             keywords: '',                                // 搜索关键字
-            // show: false
-            // 控制 loading 动画开关
-            dataSource: ds.cloneWithRows(data),
+            dataSource: [],
             avatarSource: null
-
         };
 
     }
@@ -65,15 +53,15 @@ export default class  SearchView extends Component {
                     </TouchableOpacity>
 
                 </View>
-
                 {this._renderSwiper()}
-                <ListView showsVerticalScrollIndicator={false}
+                <FlatList showsVerticalScrollIndicator={false}
                           showsHorizontalScrollIndicator={true}
                           horizontal={true}
                           backgroundColor={'white'}
                           contentContainerStyle={styles.listView}
-                    dataSource={this.state.dataSource}
-                    renderRow={this._renderRow}
+                          data={this.state.dataSource}
+                          keyExtractor={(item, index) => item + index}
+                          renderItem={this._renderRow}
                 />
                 <View style={styles.container}>
                     <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -181,9 +169,6 @@ export default class  SearchView extends Component {
              cancelButtonTitle: '取消',
              takePhotoButtonTitle: '拍照',
              chooseFromLibraryButtonTitle: '选择照片',
-             // customButtons: [
-             //     {name: 'fb', title: 'Choose Photo from Facebook'},
-             // ],
              cameraType: 'back',
              mediaType: 'photo',
              videoQuality: 'high',
