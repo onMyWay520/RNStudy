@@ -1,17 +1,23 @@
-import React, {Component} from 'react';
-import {View, Alert, FlatList, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {data} from "./SimpleListScreen";
+import React from 'react';
+import {
+  Alert,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {data} from './SimpleListScreen';
+import BasePage from './BasePage';
 
-export default class GridLayoutScreen extends Component {
-
+export default class GridLayoutScreen extends BasePage {
   constructor(props) {
     super(props);
-
   }
-
   render() {
     return (
-      <View style={{ flex: 1}}>
+      <View style={{flex: 1}}>
         <FlatList
           contentContainerStyle={styles.listView}
           data={data}
@@ -19,42 +25,43 @@ export default class GridLayoutScreen extends Component {
           renderItem={({item}) => this._renderRow(item)}
         />
       </View>
-    )
+    );
   }
 
-  _renderRow = (rowData) => {
+  _renderRow = rowData => {
     return (
-      <TouchableOpacity style={styles.cellContainer} onPress={() => {
-        Alert.alert(
-          rowData.title,
-          '',
-          [
-            {text: 'OK', onPress: () => {}},
-          ]
-        )
-      }}>
-        <Image source={rowData.image} style={styles.image}/>
+      <TouchableOpacity
+        style={styles.cellContainer}
+        onPress={() => {
+          Alert.alert(rowData.title, '', [
+            {
+              text: 'OK',
+              onPress: () => {},
+            },
+          ]);
+        }}>
+        <Image source={rowData.image} style={styles.image} />
         <Text style={styles.title}>{rowData.title}</Text>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 }
 
 const styles = StyleSheet.create({
   listView: {
-    flexDirection:'row',
-    flexWrap:'wrap',
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
   },
   cellContainer: {
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 6,
     borderWidth: 1,
-    borderColor:'#dcdcdc',
-    width:100,
+    borderColor: '#dcdcdc',
+    width: 100,
     height: 100,
     marginTop: 20,
   },
@@ -64,5 +71,5 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-  }
+  },
 });

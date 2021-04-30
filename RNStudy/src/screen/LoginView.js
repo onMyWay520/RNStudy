@@ -121,16 +121,17 @@ export default class LoginView extends BasePage {
   };
 
   showData() {
-    var phoneStart = this.state.userPhone.indexOf('1');
+    const {userPhone,password}  = this.state;
+    var phoneStart = userPhone.indexOf('1');
     if (phoneStart === -1) {
       alert('请输入正确的手机号,手机号首位必须为1');
       return;
     }
-    if (this.state.userPhone.length < 11) {
+    if (userPhone.length < 11) {
       alert('请输入正确的手机号,手机号不能小于11位');
       return;
     }
-    if (this.state.password.length < 6) {
+    if (password.length < 6) {
       alert('密码不能小于6位');
       return;
     } else {

@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, SectionList, TouchableOpacity, Image, Text, StyleSheet, Alert} from 'react-native';
+import BasePage from './BasePage';
 export const vegetables = [
   {
     image:require('../../src/image/chili.png'),
@@ -88,12 +89,12 @@ const dataSource = [{
   title:'其它',
   data : others
 }];
-export default class SectionListScreen extends Component {
+export default class SectionListScreen extends BasePage {
 
   constructor(props) {
     super(props);
+    this.setTitle('12')
   }
-
   render() {
     return (
       <View style={{flex: 1}}>
